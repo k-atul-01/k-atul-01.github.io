@@ -1,4 +1,4 @@
-  :root {
+:root {
     --paper: #14161A;
     --ink: #EDEBE3;
     --ink-soft: #B7B4AA;
@@ -7,6 +7,7 @@
     --accent: #8CA3D9;
     --accent-soft: rgba(140, 163, 217, 0.12);
     --card: #1A1D22;
+    --nav-bg: rgba(20, 22, 26, 0.92);
     --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
     --mono: 'IBM Plex Mono', 'Courier New', monospace;
   }
@@ -20,6 +21,7 @@
     --accent: #2C3E63;
     --accent-soft: #E7EAF0;
     --card: #FFFFFF;
+    --nav-bg: rgba(250, 249, 245, 0.92);
   }
 
   html, body { transition: background-color 0.2s ease, color 0.2s ease; }
@@ -113,7 +115,7 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    background: rgba(20, 22, 26, 0.92);
+    background: var(--nav-bg);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--rule);

@@ -3,290 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atul Kumar — Mathematics</title>
+<title>Home — Atul Kumar</title>
 <meta name="description" content="Atul Kumar — MSc Mathematics, IIT Madras. Analytic number theory, complex analysis, conformal and quasiconformal mappings.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-<style>
-  :root {
-    --paper: #14161A;
-    --ink: #EDEBE3;
-    --ink-soft: #B7B4AA;
-    --muted: #78766F;
-    --rule: #2B2D32;
-    --accent: #8CA3D9;
-    --accent-soft: rgba(140, 163, 217, 0.12);
-    --card: #1A1D22;
-    --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-    --mono: 'IBM Plex Mono', 'Courier New', monospace;
-  }
-
-  * { box-sizing: border-box; }
-
-  html { -webkit-font-smoothing: antialiased; }
-
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--serif);
-    font-size: 18px;
-    line-height: 1.65;
-  }
-
-  a {
-    color: var(--accent);
-    text-decoration-color: var(--rule);
-    text-underline-offset: 3px;
-  }
-  a:hover { text-decoration-color: var(--accent); }
-  a:focus-visible, button:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-  }
-
-  .wrap {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 6rem 1.5rem 5rem;
-  }
-
-  /* ---------- Header ---------- */
-
-  header {
-    margin-bottom: 3.5rem;
-  }
-
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 0 0 1rem;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    margin: 0 0 0.4rem;
-  }
-
-  .affil {
-    font-size: 1.05rem;
-    color: var(--ink-soft);
-    margin: 0;
-  }
-  .affil a { color: var(--ink-soft); }
-
-  /* ---------- Figure: signature element ---------- */
-
-  .figure {
-    margin: 2.75rem 0 3.25rem;
-    padding: 1.75rem 1.5rem 1.25rem;
-    border: 1px solid var(--rule);
-    background: var(--card);
-  }
-
-  .figure svg { display: block; width: 100%; height: auto; }
-
-  .figure figcaption {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--muted);
-    text-align: center;
-    margin-top: 0.9rem;
-    letter-spacing: 0.01em;
-  }
-
-  .figure figcaption em { font-style: italic; color: var(--ink-soft); }
-
-  /* ---------- Sections ---------- */
-
-  section { margin-bottom: 3rem; scroll-margin-top: 4.5rem; }
-
-  .sitenav {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: rgba(20, 22, 26, 0.88);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .sitenav-inner {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    display: flex;
-    gap: 1.4rem;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .sitenav-inner::-webkit-scrollbar { display: none; }
-
-  .sitenav a {
-    flex-shrink: 0;
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 0.9rem 0;
-    border-bottom: 2px solid transparent;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-
-  .sitenav a:hover,
-  .sitenav a:focus-visible {
-    color: var(--ink);
-  }
-
-  .sitenav a:focus-visible {
-    outline: none;
-    border-bottom-color: var(--accent);
-  }
-
-  @media (max-width: 560px) {
-    .sitenav-inner { padding: 0 1.25rem; gap: 1.1rem; }
-  }
-
-
-  h2 {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 500;
-    margin: 0 0 1.1rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  p { margin: 0 0 1rem; }
-  p:last-child { margin-bottom: 0; }
-
-  .lede { font-size: 1.05rem; color: var(--ink); }
-
-  ul.interests {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 0.6rem;
-  }
-
-  ul.interests li {
-    font-family: var(--mono);
-    font-size: 0.82rem;
-    color: var(--accent);
-    background: var(--accent-soft);
-    padding: 0.32rem 0.7rem;
-    border-radius: 3px;
-  }
-
-  .entry {
-    padding: 1.1rem 0;
-    border-bottom: 1px solid var(--rule);
-  }
-  .entry:last-child { border-bottom: none; padding-bottom: 0; }
-  .entry:first-child { padding-top: 0; }
-
-  .entry-title {
-    font-weight: 500;
-    font-size: 1.02rem;
-    margin: 0 0 0.3rem;
-  }
-
-  .entry-meta {
-    font-family: var(--mono);
-    font-size: 0.76rem;
-    color: var(--muted);
-    margin: 0 0 0.4rem;
-    letter-spacing: 0.01em;
-  }
-
-  .entry-desc {
-    color: var(--ink-soft);
-    font-size: 0.96rem;
-    margin: 0;
-  }
-
-  .placeholder-note {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--muted);
-    margin-top: 0.6rem;
-  }
-
-  /* ---------- Contact / footer ---------- */
-
-  .contact-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .contact-list li {
-    display: flex;
-    gap: 0.9rem;
-    padding: 0.45rem 0;
-    font-size: 0.98rem;
-  }
-  .contact-list .k {
-    font-family: var(--mono);
-    font-size: 0.76rem;
-    color: var(--muted);
-    width: 5.2rem;
-    flex-shrink: 0;
-    padding-top: 0.2rem;
-    letter-spacing: 0.02em;
-  }
-
-  footer {
-    margin-top: 4rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--rule);
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--muted);
-  }
-
-  @media (max-width: 560px) {
-    body { font-size: 16.5px; }
-    .wrap { padding: 3.5rem 1.25rem 3.5rem; }
-    h1 { font-size: 2rem; }
-    .figure { padding: 1.25rem 1rem 1rem; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    * { scroll-behavior: auto !important; }
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav class="sitenav" aria-label="Section navigation">
   <div class="sitenav-inner">
-    <a href="#top">Home</a>
-    <a href="#about">About</a>
-    <a href="#interests">Research Interests</a>
-    <a href="#education">Education</a>
-    <a href="#research-experience">Research Experience</a>
-    <a href="#papers">Working Papers</a>
-    <a href="#current-work">Current Work</a>
-    <a href="#achievements">Achievements</a>
-    <a href="#workshops">Workshops</a>
-    <a href="#skills">Skills</a>
-    <a href="#references">References</a>
-    <a href="#contact">Contact</a>
+    <a href="index.html" class="active" aria-current="page">Home</a>
+    <a href="about.html">About</a>
+    <a href="interests.html">Research Interests</a>
+    <a href="education.html">Education</a>
+    <a href="research-experience.html">Research Experience</a>
+    <a href="papers.html">Working Papers</a>
+    <a href="current-work.html">Current Work</a>
+    <a href="achievements.html">Achievements</a>
+    <a href="workshops.html">Workshops</a>
+    <a href="skills.html">Skills</a>
+    <a href="references.html">References</a>
+    <a href="contact.html">Contact</a>
   </div>
 </nav>
 
@@ -317,148 +57,19 @@
       <circle cx="380" cy="125" r="3.4" fill="#EDEBE3"/>
       <circle cx="440" cy="70" r="3.4" fill="#EDEBE3"/>
 
-      <text x="212" y="118" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="#B7B4AA">ρ₁</text>
-      <text x="312" y="98" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="#B7B4AA">ρ₂</text>
-      <text x="372" y="143" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="#B7B4AA">ρ₃</text>
-      <text x="432" y="88" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="#B7B4AA">ρₙ</text>
+      <text x="212" y="118" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="#B7B4AA">&#961;&#8321;</text>
+      <text x="312" y="98" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="#B7B4AA">&#961;&#8322;</text>
+      <text x="372" y="143" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="#B7B4AA">&#961;&#8323;</text>
+      <text x="432" y="88" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="#B7B4AA">&#961;&#8345;</text>
 
-      <text x="90" y="182" font-family="Source Serif 4, serif" font-style="italic" font-size="14" fill="#8CA3D9">∮<tspan baseline-shift="sub" font-size="10">C</tspan> f(s) ds = 2πi Σ Res f</text>
+      <text x="90" y="182" font-family="Source Serif 4, serif" font-style="italic" font-size="14" fill="#8CA3D9">&#8750;<tspan baseline-shift="sub" font-size="10">C</tspan> f(s) ds = 2&#960;i &#931; Res f</text>
     </svg>
-    <figcaption>A rectangular contour enclosing non-trivial zeros of <em>ζ(s)</em> — the setting for the residue-theoretic evaluation of γₙ.</figcaption>
+    <figcaption>A rectangular contour enclosing non-trivial zeros of <em>&#950;(s)</em> &mdash; the setting for the residue-theoretic evaluation of &#947;&#8345;.</figcaption>
   </figure>
 
   <section id="about">
     <h2>About</h2>
     <p class="lede">I am an MSc Mathematics student in the Department of Mathematics at IIT Madras. My work sits mainly in analytic number theory and complex analysis, and I like building small visual and computational tools alongside the mathematics.</p>
-  </section>
-
-  <section id="interests">
-    <h2>Research Interests</h2>
-    <ul class="interests">
-      <li>Complex geometry</li>
-      <li>Complex analysis</li>
-      <li>Conformal mapping</li>
-      <li>Quasiconformal mapping</li>
-      <li>Analytic number theory</li>
-      <li>Euler–Mascheroni constant</li>
-      <li>Stieltjes constants</li>
-      <li>Residue-theoretic methods</li>
-      <li>Complex dynamics</li>
-      <li>Linear algebra</li>
-      <li>Topology</li>
-      <li>Coding theory</li>
-      <li>Functional analysis</li>
-    </ul>
-  </section>
-
-  <section id="education">
-    <h2>Education</h2>
-    <div class="entry">
-      <p class="entry-title">M.Sc. Mathematics</p>
-      <p class="entry-meta">IIT Madras · 2025–present</p>
-    </div>
-    <div class="entry">
-      <p class="entry-title">B.Sc. Mathematics</p>
-      <p class="entry-meta">H.N.B. Garhwal University · 2022–2025 · CGPA 8.45</p>
-    </div>
-  </section>
-
-  <section id="research-experience">
-    <h2>Research Experience</h2>
-    <div class="entry">
-      <p class="entry-title">Winter Research Project — Algebra and Coding Theory</p>
-      <p class="entry-meta">Under Prof. Ananthnarayan Hariharan, IIT Bombay · Dec 2025</p>
-      <p class="entry-desc">Linear and abstract algebra (projections, inner product spaces, rings), field theory (extensions, algebraic closures, irreducible polynomials, splitting fields), finite fields via polynomial quotient rings, and an introduction to coding theory (linear codes, generator matrices, Hamming distance, error correction). Problem-driven work focused on proof-writing and mathematical maturity.</p>
-    </div>
-  </section>
-
-  <section id="papers">
-    <h2>Working Papers</h2>
-
-    <div class="entry">
-      <p class="entry-title">On the residue-theoretic evaluation of the Stieltjes constants</p>
-      <p class="entry-meta">draft — sole author</p>
-      <p class="entry-desc">A residue-theoretic framework for the Euler–Mascheroni constant γ and the Stieltjes constants γₙ, including an approach to evaluating γₙ over rectangular contours enclosing non-trivial zeros of ζ(s), connected to the Riemann Hypothesis via Li's criterion.</p>
-    </div>
-
-    <!-- <div class="entry">
-      <p class="entry-title">[Second paper — title]</p>
-      <p class="entry-meta">draft — sole author</p>
-      <p class="entry-desc">[Short description of the second paper.]</p>
-    </div> -->
-
-    <p class="placeholder-note">— replace bracketed text with your actual titles/abstracts, or link PDFs once ready</p>
-  </section>
-
-  <section id="current-work">
-    <h2>Current Work</h2>
-    <div class="entry">
-      <p class="entry-title">Conformal and quasiconformal mapping and their applications</p>
-      <p class="entry-meta">Seminar project · under Prof. S. Ponnusamy, IIT Madras</p>
-      <p class="entry-desc">Ongoing seminar project in complex geometry, focused on conformal and quasiconformal mappings and their applications.</p>
-    </div>
-  </section>
-
-  <section id="achievements">
-    <h2>Achievements</h2>
-    <ul class="interests">
-      <li>IIT JAM 2025 — AIR 649</li>
-      <li>NBHM Masters 2025 — shortlisted, HRI</li>
-      <li>DST INSPIRE Scholar</li>
-      <li>State Rank 17 — Class 10, Uttarakhand Board</li>
-      <li>State Rank 21 — Class 12, Uttarakhand Board</li>
-    </ul>
-  </section>
-
-  <section id="workshops">
-    <h2>Workshops &amp; Activities</h2>
-    <div class="entry">
-      <p class="entry-desc">INIT Math UP 2024 (MTTS Trust), IIT Roorkee</p>
-    </div>
-    <div class="entry">
-      <p class="entry-desc">Mentor, OFCM 2025 (MTTS Trust)</p>
-    </div>
-    <div class="entry">
-      <p class="entry-desc">Popular Science Lecture Series, Institute of Mathematical Sciences (IMSc) &amp; Tamil Nadu Science Forum, Feb 2026</p>
-    </div>
-    <div class="entry">
-      <p class="entry-desc">MTTS Summer Camp 2026 (Level II), KIIT Bhubaneswar, Odisha</p>
-    </div>
-    <div class="entry">
-      <p class="entry-desc">National-Level Hands-on FDP: Computational Topology Using Python, July 2026</p>
-    </div>
-  </section>
-
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul class="interests">
-      <li>Python</li>
-      <li>C</li>
-      <li>LaTeX</li>
-      <li>MATLAB (learning)</li>
-      <li>Manim (learning)</li>
-    </ul>
-  </section>
-
-  <section id="references">
-    <h2>References</h2>
-    <div class="entry">
-      <p class="entry-title">Prof. Ananthnarayan Hariharan</p>
-      <p class="entry-desc">Department of Mathematics, Indian Institute of Technology Bombay</p>
-    </div>
-    <div class="entry">
-      <p class="entry-title">Prof. S. Ponnusamy</p>
-      <p class="entry-desc">Department of Mathematics, Indian Institute of Technology Madras</p>
-    </div>
-    <p class="placeholder-note">— referee emails withheld here by default (kept on the PDF CV); add if you'd rather they be public</p>
-  </section>
-
-  <section id="contact">
-    <h2>Contact</h2>
-    <ul class="contact-list">
-      <li><span class="k">Email</span><span><a href="mailto:ma25c010@smail.iitm.ac.in">ma25c010@smail.iitm.ac.in</a></span></li>
-      <li><span class="k">GitHub</span><span><a href="#">[your GitHub username]</a></span></li>
-    </ul>
   </section>
 
   <footer>

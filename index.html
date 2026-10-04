@@ -117,3 +117,628 @@
 <script src="script.js" defer></script>
 </body>
 </html> -->
+
+
+
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atul Kumar — Mathematics</title>
+<meta name="description" content="Atul Kumar — M.Sc. Mathematics, IIT Madras. CV, research interests, and academic record.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#0A0A10;
+    --paper-dim:rgba(255,255,255,0.05);
+    --ink:#F2F1F6;
+    --ink-soft:#C7C5D4;
+    --muted:#9C99AC;
+    --indigo:#8B7FFF;
+    --indigo-deep:#6F62E8;
+    --amber:#F3B860;
+    --line:rgba(255,255,255,0.14);
+    --card:rgba(13,12,19,0.70);
+    --radius:14px;
+    --maxw:840px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    color:var(--ink);
+    font-family:'Inter', system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(180deg, rgba(4,4,8,0.80) 0%, rgba(6,6,11,0.55) 30%, rgba(5,5,9,0.90) 100%),
+      url("assets/complex-graph.png");
+    background-size:cover;
+    background-position:center 30%;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+  }
+  @media (max-width:800px){
+    body{background-attachment:scroll;}
+  }
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  a{color:var(--indigo);}
+  a:focus-visible, button:focus-visible{
+    outline:2.5px solid var(--indigo);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:600;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:110px 0 80px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-inner{position:relative; z-index:1;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--amber);
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    margin-bottom:18px;
+    opacity:0;
+    animation: rise 0.7s ease forwards;
+    animation-delay:0.05s;
+  }
+
+  .hero h1{
+    font-size:clamp(2.4rem, 6vw, 3.6rem);
+    line-height:1.05;
+    color:#FFFFFF;
+    text-shadow:0 2px 24px rgba(0,0,0,0.5);
+    opacity:0;
+    animation: rise 0.7s ease forwards;
+    animation-delay:0.15s;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--indigo);
+  }
+
+  .hero .subtitle{
+    margin-top:18px;
+    max-width:52ch;
+    font-size:1.08rem;
+    color:var(--ink-soft);
+    text-shadow:0 1px 16px rgba(0,0,0,0.4);
+    opacity:0;
+    animation: rise 0.7s ease forwards;
+    animation-delay:0.28s;
+  }
+
+  .contact-row{
+    margin-top:34px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    opacity:0;
+    animation: rise 0.7s ease forwards;
+    animation-delay:0.4s;
+  }
+  .contact-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:9px 16px;
+    background:var(--card);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--line);
+    border-radius:999px;
+    font-size:0.87rem;
+    text-decoration:none;
+    color:var(--ink);
+    transition:border-color 0.18s, transform 0.18s;
+  }
+  .contact-pill:hover{border-color:var(--indigo); transform:translateY(-1px);}
+
+  @keyframes rise{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* ---------- SECTIONS ---------- */
+  main{padding:64px 0 40px;}
+  section{margin-bottom:56px;}
+  section:target{scroll-margin-top:24px;}
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:22px;
+  }
+  .section-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--amber);
+    white-space:nowrap;
+  }
+  .section-head h2{
+    font-size:1.55rem;
+    color:#FFFFFF;
+  }
+  .section-rule{
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* Card */
+  .card{
+    background:var(--card);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px 28px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.35);
+  }
+  .card + .card{margin-top:16px;}
+
+  /* Research (theorem) */
+  .theorem-card{
+    border-left:3px solid var(--indigo);
+    position:relative;
+  }
+  .theorem-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.15rem;
+    margin-bottom:4px;
+    color:#FFFFFF;
+  }
+  .theorem-meta{
+    font-size:0.88rem;
+    color:var(--muted);
+    margin-bottom:16px;
+  }
+  .theorem-card ul{
+    margin:0;
+    padding-left:20px;
+  }
+  .theorem-card li{margin-bottom:8px; color:var(--ink-soft);}
+  .theorem-card li::marker{color:var(--indigo);}
+  .qed{
+    text-align:right;
+    color:var(--indigo);
+    font-family:'IBM Plex Mono', monospace;
+    margin-top:14px;
+    font-size:0.95rem;
+  }
+
+  /* tags */
+  .tags{display:flex; flex-wrap:wrap; gap:9px;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.82rem;
+    padding:7px 13px;
+    background:var(--paper-dim);
+    border:1px solid var(--line);
+    border-radius:8px;
+    color:var(--ink-soft);
+  }
+  .tag.amber{border-color:rgba(243,184,96,0.45); background:rgba(243,184,96,0.12); color:var(--amber);}
+
+  /* Education timeline */
+  .edu-item{
+    display:grid;
+    grid-template-columns:110px 1fr;
+    gap:18px;
+    padding:18px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .edu-item:last-child{border-bottom:none;}
+  .edu-year{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    color:var(--indigo);
+    font-weight:500;
+  }
+  .edu-item h3{font-size:1.05rem; font-weight:600; margin-bottom:4px; color:#FFFFFF;}
+  .edu-item p{margin:0; color:var(--muted); font-size:0.92rem;}
+
+  /* Coursework two-col */
+  .grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .coursework-block h3{
+    font-size:0.95rem;
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--amber);
+    font-weight:500;
+    margin-bottom:12px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  .coursework-block ul{margin:0; padding:0; list-style:none;}
+  .coursework-block li{
+    padding:7px 0;
+    border-bottom:1px dashed var(--line);
+    font-size:0.93rem;
+    color:var(--ink-soft);
+  }
+  .coursework-block li:last-child{border-bottom:none;}
+
+  /* Achievements / corollaries */
+  .corollary-list{list-style:none; margin:0; padding:0;}
+  .corollary-list li{
+    display:flex;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    align-items:baseline;
+  }
+  .corollary-list li:last-child{border-bottom:none;}
+  .corollary-num{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--amber);
+    font-weight:500;
+    font-size:0.9rem;
+    min-width:26px;
+  }
+  .corollary-list p{margin:0; color:var(--ink-soft); font-size:0.95rem;}
+  .corollary-list strong{color:#FFFFFF; font-weight:600;}
+
+  /* Remarks list (workshops) */
+  .remark-list{margin:0; padding-left:0; list-style:none;}
+  .remark-list li{
+    position:relative;
+    padding:10px 0 10px 22px;
+    color:var(--ink-soft);
+    font-size:0.95rem;
+    border-bottom:1px solid var(--line);
+  }
+  .remark-list li:last-child{border-bottom:none;}
+  .remark-list li::before{
+    content:"›";
+    position:absolute;
+    left:0;
+    color:var(--indigo);
+    font-weight:700;
+  }
+
+  /* references */
+  .ref-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .ref-card h3{font-size:1rem; margin-bottom:6px; color:#FFFFFF;}
+  .ref-card p{margin:0; color:var(--muted); font-size:0.88rem; line-height:1.55;}
+  .ref-card a{color:var(--indigo); text-decoration:none;}
+  .ref-card a:hover{text-decoration:underline;}
+
+  /* Additional info */
+  .info-row{display:flex; gap:40px; flex-wrap:wrap;}
+  .info-block h3{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.82rem;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-bottom:8px;
+    font-weight:500;
+  }
+  .info-block p{margin:0; color:var(--ink-soft);}
+
+  /* footer */
+  footer{
+    border-top:1px solid var(--line);
+    padding:36px 0 60px;
+    text-align:center;
+  }
+  .footer-mark{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.1rem;
+    color:var(--indigo);
+    margin-bottom:8px;
+  }
+  footer p{color:var(--muted); font-size:0.85rem; margin:4px 0;}
+
+  @media (max-width:640px){
+    .hero{padding:80px 0 56px;}
+    .grid-2{grid-template-columns:1fr;}
+    .ref-grid{grid-template-columns:1fr;}
+    .edu-item{grid-template-columns:1fr; gap:4px;}
+    .card{padding:20px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Definition — Curriculum Vitae</div>
+    <h1>Atul Kumar<br><em>studies mathematics</em>, formally and otherwise.</h1>
+    <p class="subtitle">M.Sc. Mathematics candidate at IIT Madras, working toward research in complex analysis and coding theory — with a proof-writer's patience for getting the details right.</p>
+    <div class="contact-row">
+      <a class="contact-pill" href="mailto:ma25c010@smail.iitm.ac.in">ma25c010@smail.iitm.ac.in</a>
+      <a class="contact-pill" href="mailto:akumarji00251@gmail.com">akumarji00251@gmail.com</a>
+      <a class="contact-pill" href="tel:+919548649403">+91 95486 49403</a>
+      <span class="contact-pill">Chennai, India</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="reveal" id="research">
+    <div class="section-head">
+      <span class="section-tag">Theorem 1</span>
+      <h2>Research Experience</h2>
+      <span class="section-rule"></span>
+    </div>
+    <div class="card theorem-card">
+      <div class="theorem-title">Winter Research Project — Algebra and Coding Theory</div>
+      <div class="theorem-meta">Under Prof. Ananthnarayan Hariharan, IIT Bombay · December 2025</div>
+      <ul>
+        <li>Studied linear and abstract algebra: projections, inner product spaces, rings, and field theory — extensions, algebraic closures, irreducible polynomials, splitting fields.</li>
+        <li>Explored finite fields via polynomial quotient rings and their algebraic structure.</li>
+        <li>Introduced to coding theory in the final two weeks: linear codes, generator matrices, Hamming distance, minimum distance, and error correction.</li>
+        <li>Problem-driven work that sharpened proof-writing skills and mathematical maturity.</li>
+      </ul>
+      <div class="qed">∎</div>
+    </div>
+  </section>
+
+  <section class="reveal" id="interests">
+    <div class="section-head">
+      <span class="section-tag">Remark</span>
+      <h2>Research Interests</h2>
+      <span class="section-rule"></span>
+    </div>
+    <div class="card">
+      <div class="tags">
+        <span class="tag amber">Complex Analysis</span>
+        <span class="tag amber">Conformal Mapping</span>
+        <span class="tag amber">Quasi-conformal Mapping</span>
+        <span class="tag">Analytic Number Theory</span>
+        <span class="tag">Linear Algebra</span>
+        <span class="tag">Topology</span>
+        <span class="tag">Coding Theory</span>
+        <span class="tag">Functional Analysis</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal" id="education">
+    <div class="section-head">
+      <span class="section-tag">Axiom</span>
+      <h2>Education</h2>
+      <span class="section-rule"></span>
+    </div>
+    <div class="card">
+      <div class="edu-item">
+        <span class="edu-year">2025 — Present</span>
+        <div>
+          <h3>M.Sc. Mathematics</h3>
+          <p>Indian Institute of Technology Madras</p>
+        </div>
+      </div>
+      <div class="edu-item">
+        <span class="edu-year">2022 — 2025</span>
+        <div>
+          <h3>B.Sc. Mathematics</h3>
+          <p>H.N.B. Garhwal University · CGPA 8.45, First Class</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal" id="coursework">
+    <div class="section-head">
+      <span class="section-tag">Lemma 1</span>
+      <h2>Relevant Coursework</h2>
+      <span class="section-rule"></span>
+    </div>
+    <div class="card">
+      <div class="grid-2">
+        <div class="coursework-block">
+          <h3>Mathematics</h3>
+          <ul>
+            <li>Real Analysis</li>
+            <li>Measure Theory</li>
+            <li>Linear Algebra</li>
+            <li>Abstract Algebra</li>
+            <li>Complex Analysis</li>
+            <li>ODE &amp; PDE</li>
+            <li>Probability</li>
+            <li>Numerical Analysis</li>
+            <li>Topology</li>
+            <li>Combinatorics</li>
+          </ul>
+        </div>
+        <div class="coursework-block">
+          <h3>Physics</h3>
+          <ul>
+            <li>Quantum Mechanics</li>
+            <li>Electrodynamics</li>
+            <li>Thermodynamics</li>
+            <li>Mechanics</li>
+            <li>Waves &amp; Optics</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal" id="skills">
+    <div class="section-head">
+      <span class="section-tag">Lemma 2</span>
+      <h2>Technical Skills</h2>
+      <span class="section-rule"></span>
+    </div>
+    <div class="card">
+      <div class="info-row">
+        <div class="info-block">
+          <h3>Programming</h3>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">C</span>
+          </div>
+        </div>
+        <div class="info-block">
+          <h3>Tools</h3>
+          <div class="tags">
+            <span class="tag">LaTeX</span>
+            <span class="tag">MATLAB — learning</span>
+            <span class="tag">Manim — learning</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal" id="achievements">
+    <div class="section-head">
+      <span class="section-tag">Corollary</span>
+      <h2>Achievements</h2>
+      <span class="section-rule"></span>
+    </div>
+    <div class="card">
+      <ul class="corollary-list">
+        <li>
+          <span class="corollary-num">01</span>
+          <p><strong>IIT JAM 2025</strong> — All India Rank 649</p>
+        </li>
+        <li>
+          <span class="corollary-num">02</span>
+          <p><strong>NBHM Masters 2025</strong> — Shortlisted for HRI</p>
+        </li>
+        <li>
+          <span class="corollary-num">03</span>
+          <p><strong>DST INSPIRE Scholar</strong></p>
+        </li>
+        <li>
+          <span class="corollary-num">04</span>
+          <p><strong>State Rank 17</strong> — Class 10, Uttarakhand Board</p>
+        </li>
+        <li>
+          <span class="corollary-num">05</span>
+          <p><strong>State Rank 21</strong> — Class 12, Uttarakhand Board</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="reveal" id="workshops">
+    <div class="section-head">
+      <span class="section-tag">Remark</span>
+      <h2>Workshops &amp; Activities</h2>
+      <span class="section-rule"></span>
+    </div>
+    <div class="card">
+      <ul class="remark-list">
+        <li>INIT Math UP 2024 (MTTS Trust), IIT Roorkee</li>
+        <li>Mentor, OFCM 2025 (MTTS Trust)</li>
+        <li>Popular Science Lecture Series — Institute of Mathematical Sciences (IMSc) &amp; Tamil Nadu Science Forum, Feb 2026</li>
+        <li>MTTS Summer Camp 2026 (Level II), KIIT Bhubaneswar, Odisha</li>
+        <li>National-Level Hands-on FDP: Computational Topology Using Python, July 2026</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="reveal" id="additional">
+    <div class="section-head">
+      <span class="section-tag">Note</span>
+      <h2>Additional Information</h2>
+      <span class="section-rule"></span>
+    </div>
+    <div class="card">
+      <div class="info-row">
+        <div class="info-block">
+          <h3>Languages</h3>
+          <p>English (fluent), Hindi (native)</p>
+        </div>
+        <div class="info-block">
+          <h3>Interests</h3>
+          <p>Poetry, literature, exploring cultures</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal" id="references">
+    <div class="section-head">
+      <span class="section-tag">Citations</span>
+      <h2>References</h2>
+      <span class="section-rule"></span>
+    </div>
+    <div class="ref-grid">
+      <div class="card ref-card">
+        <h3>Prof. Ananthnarayan Hariharan</h3>
+        <p>Department of Mathematics<br>Indian Institute of Technology Bombay<br><a href="mailto:ananth@math.iitb.ac.in">ananth@math.iitb.ac.in</a></p>
+      </div>
+      <div class="card ref-card">
+        <h3>Prof. S. Ponnusamy</h3>
+        <p>Department of Mathematics<br>Indian Institute of Technology Madras<br><a href="mailto:samy@iitm.ac.in">samy@iitm.ac.in</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-mark">∎ Q.E.D.</div>
+  <p>Atul Kumar · Chennai, India</p>
+  <p>Last updated 25 July 2026</p>
+</footer>
+
+<script>
+  // Reveal-on-scroll for sections
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+  } else {
+    els.forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>

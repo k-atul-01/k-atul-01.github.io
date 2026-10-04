@@ -49,35 +49,59 @@
     <p class="affil">MSc Mathematics, Department of Mathematics — <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener">IIT Madras</a></p>
   </header>
 
-  <figure class="figure" aria-label="Diagram of a contour integral enclosing a pole">
-    <svg viewBox="0 0 620 200" role="img" aria-hidden="true">
-      <!-- axes -->
-      <line x1="40" y1="100" x2="580" y2="100" stroke="var(--rule)" stroke-width="1"/>
-      <line x1="130" y1="20" x2="130" y2="180" stroke="var(--rule)" stroke-width="1"/>
-      <text x="586" y="104" font-family="IBM Plex Mono" font-size="12" fill="var(--muted)">Re</text>
-      <text x="118" y="16" font-family="IBM Plex Mono" font-size="12" fill="var(--muted)">Im</text>
+  <figure class="figure" aria-label="Diagram of the map z to z squared sending an orthogonal grid to confocal parabolas">
+    <svg viewBox="0 0 640 300" role="img" aria-hidden="true">
+      <!-- domain panel -->
+      <rect x="40" y="40" width="190" height="220" fill="none" stroke="var(--rule)" stroke-width="1"/>
+      <text x="40" y="32" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="var(--muted)">z</text>
 
-      <!-- contour: rectangle -->
-      <rect x="90" y="45" width="380" height="110" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
-      <!-- direction arrow on top edge -->
-      <polygon points="300,45 310,41 310,49" fill="var(--accent)"/>
+      <!-- domain grid: vertical lines x = 0.6, 1.2, 1.8 -->
+      <g stroke="var(--rule)" stroke-width="1">
+        <line x1="161" y1="40" x2="161" y2="260"/>
+        <line x1="187" y1="40" x2="187" y2="260"/>
+        <line x1="213" y1="40" x2="213" y2="260"/>
+      </g>
+      <!-- domain grid: horizontal lines y = 0.6, 1.2, 1.8 -->
+      <g stroke="var(--rule)" stroke-width="1">
+        <line x1="40" y1="123" x2="230" y2="123"/>
+        <line x1="40" y1="95"  x2="230" y2="95"/>
+        <line x1="40" y1="68"  x2="230" y2="68"/>
+      </g>
 
-      <!-- poles -->
-      <circle cx="220" cy="100" r="3.4" fill="var(--ink)"/>
-      <circle cx="320" cy="80" r="3.4" fill="var(--ink)"/>
-      <circle cx="380" cy="125" r="3.4" fill="var(--ink)"/>
-      <circle cx="440" cy="70" r="3.4" fill="var(--ink)"/>
+      <!-- z0 marker -->
+      <circle cx="161" cy="123" r="2.6" fill="var(--ink)"/>
+      <text x="168" y="118" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="var(--ink-soft)">z&#8320;</text>
 
-      <text x="212" y="118" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="var(--ink-soft)">&#961;&#8321;</text>
-      <text x="312" y="98" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="var(--ink-soft)">&#961;&#8322;</text>
-      <text x="372" y="143" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="var(--ink-soft)">&#961;&#8323;</text>
-      <text x="432" y="88" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="var(--ink-soft)">&#961;&#8345;</text>
+      <!-- arrow -->
+      <line x1="242" y1="150" x2="388" y2="150" stroke="var(--ink)" stroke-width="1.2"/>
+      <polygon points="388,150 378,145 378,155" fill="var(--ink)"/>
+      <text x="268" y="140" font-family="Source Serif 4, serif" font-style="italic" font-size="15" fill="var(--ink)">z &#8614; z&#178;</text>
 
-      <text x="90" y="182" font-family="Source Serif 4, serif" font-style="italic" font-size="14" fill="var(--accent)">&#8750;<tspan baseline-shift="sub" font-size="10">C</tspan> f(s) ds = 2&#960;i &#931; Res f</text>
+      <!-- image panel -->
+      <rect x="400" y="40" width="210" height="220" fill="none" stroke="var(--rule)" stroke-width="1"/>
+      <text x="400" y="32" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="var(--muted)">w = z&#178;</text>
+
+      <!-- parabola family from vertical lines (opens toward -Re) -->
+      <g fill="none" stroke="var(--accent)" stroke-width="1.4" opacity="0.85">
+        <path d="M 446.8 184.3 Q 572.6 150 446.8 115.7"/>
+        <path d="M 460.8 218.6 Q 586.6 150 460.8 81.4"/>
+        <path d="M 484.2 253.0 Q 610.0 150 484.2 47.0"/>
+      </g>
+      <!-- parabola family from horizontal lines (opens toward +Re) -->
+      <g fill="none" stroke="var(--accent)" stroke-width="1.4" opacity="0.5">
+        <path d="M 563.2 184.3 Q 437.4 150 563.2 115.7"/>
+        <path d="M 549.2 218.6 Q 423.4 150 549.2 81.4"/>
+        <path d="M 525.8 253.0 Q 400.0 150 525.8 47.0"/>
+      </g>
+
+      <!-- f(z0) marker, at the orthogonal crossing -->
+      <circle cx="505" cy="141" r="2.6" fill="var(--ink)"/>
+      <text x="512" y="136" font-family="Source Serif 4, serif" font-style="italic" font-size="13" fill="var(--ink-soft)">f(z&#8320;)</text>
+
+      <text x="400" y="288" font-family="Source Serif 4, serif" font-style="italic" font-size="14" fill="var(--accent)">u + iv = (x&#178;&#8722;y&#178;) + i(2xy)</text>
     </svg>
-    <figcaption>A rectangular contour enclosing non-trivial zeros of <em>&#950;(s)</em> &mdash; the setting for the residue-theoretic evaluation of &#947;&#8345;.</figcaption>
+    <figcaption>Vertical lines <em>x = const</em> (solid) and horizontal lines <em>y = const</em> (faint) in the <em>z</em>-plane map under <em>z&#178;</em> to two families of confocal parabolas, each pair crossing orthogonally &mdash; a direct picture of conformality away from the branch point at the origin.</figcaption>
   </figure>
-
   <section id="about">
     <h2>About</h2>
     <p class="lede">I am an MSc Mathematics student in the Department of Mathematics at IIT Madras. My work sits mainly in Complex Analysis <I>(Conformal & Quasi-Conformal Mappings and their Application)</I> and Analytic Number Theory, and I like building small visual and computational tools alongside the mathematics.</p>

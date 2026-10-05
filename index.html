@@ -217,6 +217,23 @@
     margin-top:14px;
     font-size:0.95rem;
   }
+    .notes-link{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    margin-top:16px;
+    padding:8px 14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    color:var(--amber);
+    background:rgba(243,184,96,0.10);
+    border:1px solid rgba(243,184,96,0.35);
+    border-radius:8px;
+    text-decoration:none;
+    transition:background 0.18s, transform 0.18s;
+  }
+  .notes-link:hover{background:rgba(243,184,96,0.18); transform:translateX(2px);}
+  .notes-link svg{flex-shrink:0;}
 
   /* tags */
   .tags{display:flex; flex-wrap:wrap; gap:9px;}
@@ -377,13 +394,30 @@
 </header>
 
 <main class="wrap">
-
   <section class="reveal" id="research">
     <div class="section-head">
       <span class="section-tag">Theorem 1</span>
       <h2>Research Experience</h2>
       <span class="section-rule"></span>
     </div>
+
+    <div class="card theorem-card">
+      <div class="theorem-title">Seminar Project on Quasiconformal Mapping</div>
+      <div class="theorem-meta">Under Prof. S. Ponnusamy, IIT Madras</div>
+      <ul>
+        <li>A guided reading and discussion seminar on higher-dimensional quasiconformal mappings.</li>
+        <li>Aims to extend the classical theory of conformal and quasiconformal maps — originally developed for the complex plane — to ℝⁿ for n ≥ 3, a setting where the tools of complex analysis no longer apply and geometric methods take their place.</li>
+        <li>Began with the foundational language of isometries of ℝⁿ, building toward the analytic and geometric characterizations of quasiconformality covered in later chapters.</li>
+        <li>Maintaining a set of LaTeX notes alongside the reading, including a dedicated section compiling worked examples of isometries, as a reference for the distortion estimates the later material depends on.</li>
+        <li>Progress so far spans the first three chapters in full, with work currently underway on Chapter 4.</li>
+      </ul>
+      <a class="notes-link" href="notes/qc-mappings.html">
+        <span>For more details, click here</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="qed">∎</div>
+    </div>
+
     <div class="card theorem-card">
       <div class="theorem-title">Winter Research Project — Algebra and Coding Theory</div>
       <div class="theorem-meta">Under Prof. Ananthnarayan Hariharan, IIT Bombay · December 2025</div>
@@ -392,17 +426,6 @@
         <li>Explored finite fields via polynomial quotient rings and their algebraic structure.</li>
         <li>Introduced to coding theory in the final two weeks: linear codes, generator matrices, Hamming distance, minimum distance, and error correction.</li>
         <li>Problem-driven work that sharpened proof-writing skills and mathematical maturity.</li>
-      </ul>
-      <div class="qed">∎</div>
-      <div class="card theorem-card">
-      <div class="theorem-title">Seminar project on Quasi-conformal Mapping </div>
-      <div class="theorem-meta">Under Prof. S. Ponnusamy, IIT Chennai ·</div>
-      <ul>
-        <li>Devoping Comp</li>
-      </ul>
-      <div class="qed">∎</div>
-    </div>
-  </section>
       </ul>
       <div class="qed">∎</div>
     </div>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quasiconformal Mappings and Grötzsch's Problem — Notes — Atul Kumar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+<style>
+  :root{
+    --paper:#0A0A10; --ink:#F2F1F6; --ink-soft:#C7C5D4; --muted:#9C99AC;
+    --indigo:#8B7FFF; --amber:#F3B860; --line:rgba(255,255,255,0.14);
+    --card:rgba(16,15,22,0.92); --maxw:760px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Inter', system-ui, sans-serif; line-height:1.7; font-size:16px;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:56px 28px 110px;}
+  a.back{font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--amber); text-decoration:none;}
+  a.back:hover{text-decoration:underline;}
+  h1{font-family:'Fraunces', serif; font-weight:600; font-size:2rem; margin:20px 0 6px; color:#fff; line-height:1.15;}
+  .meta{color:var(--muted); font-size:0.9rem; margin-bottom:10px; font-family:'IBM Plex Mono', monospace;}
+  .abstract{color:var(--ink-soft); font-style:italic; border-left:2px solid var(--line); padding-left:16px; margin:28px 0 40px;}
+  h2{font-family:'Fraunces', serif; font-weight:600; font-size:1.45rem; color:#fff; margin-top:52px; margin-bottom:16px;
+     padding-bottom:10px; border-bottom:1px solid var(--line);}
+  h3{font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem; color:#fff; margin-top:34px; margin-bottom:10px;}
+  p{color:var(--ink-soft); margin:14px 0;}
+  ol, ul{color:var(--ink-soft);}
+  li{margin-bottom:6px;}
+  strong{color:#fff;}
+
+  .box{
+    margin:22px 0; padding:18px 20px; border-radius:10px;
+    background:var(--card); border:1px solid var(--line);
+  }
+  .box-label{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:600;
+    color:var(--indigo); margin-bottom:6px; display:block;
+  }
+  .box.theorem{border-left:3px solid var(--indigo);}
+  .box.definition{border-left:3px solid var(--amber);}
+  .box.example{border-left:3px solid #4FAE8E;}
+  .box.remark{border-left:3px solid var(--muted);}
+
+  .proof{margin:16px 0 22px 0; color:var(--ink-soft);}
+  .proof-label{font-style:italic; color:var(--ink);}
+  .qed-mark{float:right; color:var(--indigo); font-family:'IBM Plex Mono', monospace;}
+
+  .eq-box{
+    display:block; text-align:center; margin:18px 0; padding:14px;
+    border:1px solid rgba(243,184,96,0.4); border-radius:8px;
+    background:rgba(243,184,96,0.07);
+  }
+
+  figure.fig{margin:28px 0; text-align:center;}
+  figure.fig img{max-width:100%; border-radius:10px; background:white; padding:6px;}
+  figure.fig svg{max-width:100%; height:auto;}
+  figcaption{color:var(--muted); font-size:0.85rem; margin-top:10px; font-style:italic;}
+
+  table.results{width:100%; border-collapse:collapse; margin:20px 0; font-size:0.92rem;}
+  table.results th, table.results td{border:1px solid var(--line); padding:8px 12px; text-align:left; color:var(--ink-soft);}
+  table.results th{color:#fff; font-family:'IBM Plex Mono', monospace; font-weight:500; font-size:0.82rem;}
+
+  pre.code-block{
+    background:#0E0D14; border:1px solid var(--line); border-radius:10px;
+    padding:18px; overflow-x:auto; font-family:'IBM Plex Mono', monospace;
+    font-size:0.82rem; color:#C7C5D4; line-height:1.55; margin:20px 0;
+  }
+  pre.code-block .cm{color:var(--muted);}
+  pre.code-block .kw{color:var(--amber);}
+
+  .contents-list{
+    list-style:none; padding:0; margin:0; font-family:'IBM Plex Mono', monospace; font-size:0.88rem;
+  }
+  .contents-list li{margin-bottom:6px;}
+  .contents-list a{color:var(--ink-soft); text-decoration:none;}
+  .contents-list a:hover{color:var(--amber);}
+
+  .nav-footer{
+    margin-top:70px; padding-top:24px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.85rem;
+  }
+  .nav-footer a{color:var(--amber); text-decoration:none;}
+  .nav-footer a:hover{text-decoration:underline;}
+
+  @media (max-width:640px){
+    .wrap{padding:40px 20px 80px;}
+    h1{font-size:1.6rem;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../notes.html">← Notes index</a>
+  <h1>Quasiconformal Mappings and<br>Grötzsch's Problem</h1>
+  <div class="meta">Seminar Notes · Higher-Dimensional Quasiconformal Mappings · Under Prof. S. Ponnusamy</div>
+
+  <ul class="contents-list">
+    <li><a href="#dilatation">A. Dilatation</a></li>
+    <li><a href="#defqc">Definition of quasiconformal maps</a></li>
+    <li><a href="#grotzsch">B. Grötzsch's Problem</a></li>
+    <li><a href="#examples">Examples 1–3: the rectangle problem</a></li>
+    <li><a href="#additional">Additional quasiconformal examples (4–7)</a></li>
+    <li><a href="#code">Mathematica code</a></li>
+  </ul>
+
+  <h2 id="dilatation">A. Dilatation</h2>
+  <p>In the previous notes we found: let $f : A \to \mathbb{C}$ with $A \subseteq \mathbb{C}$, differentiable at $z$. Then
+    $$ L_f(z) = |\partial f(z)| + |\bar\partial f(z)|, \qquad \ell_f(z) = \big||\partial f(z)| - |\bar\partial f(z)|\big|. $$
+    The obvious question: can we define the same notion of dilatation here as for a linear transformation? The answer
+    is yes — but first, some preliminary quantities.</p>
+
+  <p>Let $f$ be differentiable at $z$ and sense-preserving (or sense-reversing). From
+    $df = f_z\,dz + f_{\bar z}\,d\bar z$, it follows that
+    $$ |dw| = |f_z\,dz + f_{\bar z}\,d\bar z| \le \big(|f_z|+|f_{\bar z}|\big)|dz| \qquad (\because |dz|=|d\bar z|). $$
+    So, by the triangle inequality,
+    $$ \big(|f_z|-|f_{\bar z}|\big)|dz| \;\le\; |dw| \;\le\; \big(|f_z|+|f_{\bar z}|\big)|dz|. $$
+    We also have an easy way to compute $f_z$ and $f_{\bar z}$:
+    $$ f_z = \tfrac12(u_x+v_y) + \tfrac{i}{2}(v_x-u_y), \qquad f_{\bar z} = \tfrac12(u_x-v_y) + \tfrac{i}{2}(v_x+u_y), $$
+    from which $|f_z|^2 - |f_{\bar z}|^2 = u_xv_y - u_yv_x = J$, the Jacobian. Since $f$ is sense-preserving, $J>0$, so
+    $$ |f_z|^2 - |f_{\bar z}|^2 > 0 \;\Longrightarrow\; |f_z|^2 > |f_{\bar z}|^2 \ge 0 \;\Longrightarrow\; |f_z| > |f_{\bar z}| \ge 0 \;\Longrightarrow\; |f_z|-|f_{\bar z}| > 0. $$
+    So we are now in a position to define the dilatation of a complex $f$.</p>
+
+  <div class="box definition">
+    <span class="box-label">Definition</span>
+    Let $f:A\to\mathbb{C}$, $A\subseteq\mathbb{C}$, differentiable at $z$ and sense-preserving (or sense-reversing). The
+    <strong>dilatation</strong> at a point $z_0$ is the ratio of maximal to minimal stretching at $z_0$:
+    $$ D_f = \left|\frac{dw}{dz}\right| = \frac{|f_z|+|f_{\bar z}|}{|f_z|-|f_{\bar z}|} \;\ge\; 1. $$
+  </div>
+
+  <h2 id="defqc">Definition of Quasiconformal Maps</h2>
+  <p>Given the dilatation $D_f = \dfrac{|f_z|+|f_{\bar z}|}{|f_z|-|f_{\bar z}|} \ge 1$, we can now say precisely what it
+    means for a map to distort angles by only a bounded amount.</p>
+  <div class="box definition">
+    <span class="box-label">Definition</span>
+    Let $f : \Omega \to \Omega'$ be an orientation-preserving homeomorphism between domains $\Omega,\Omega' \subset \mathbb{C}$.
+    We say $f$ is <strong>$K$-quasiconformal</strong> (for a constant $K \ge 1$) if $D_f(z) \le K$ for every $z \in \Omega$.
+    We say $f$ is <strong>quasiconformal</strong> if it is $K$-quasiconformal for some finite $K$.
+  </div>
+  <p>Equivalently, the image ellipse at $z$ has semi-major axis $|f_z|+|f_{\bar z}|$ and semi-minor axis $|f_z|-|f_{\bar z}|$,
+    and $D_f(z)$ is exactly the ratio of these axes.</p>
+  <ul>
+    <li>$D_f \equiv 1$ (i.e. $K=1$) iff $f_{\bar z} \equiv 0$, i.e. $f$ is holomorphic — a $1$-quasiconformal map is
+      precisely a conformal map.</li>
+    <li>Larger $K$ allows more distortion; a $K$-quasiconformal map is also $K'$-quasiconformal for any $K' \ge K$.</li>
+  </ul>
+
+  <h2 id="grotzsch">B. Grötzsch's Problem</h2>
+  <p>Given two rectangles $R$ and $R'$ with different side ratios, there is in general no conformal map of $R$ onto
+    $R'$ taking the $a$-sides to the $a$-sides and $b$-sides to $b$-sides (a conformal map can only do this when
+    $a:b = a':b'$).</p>
+  <div class="box remark">
+    <span class="box-label">Problem (Grötzsch, 1928)</span>
+    If $Q$ is a square and $R$ is a rectangle, not a square, there is no conformal mapping of $Q$ onto $R$ sending
+    vertices to vertices. Instead, Grötzsch asked for the <em>most nearly conformal</em> mapping of this kind. This
+    calls for a measure of approximate conformality, and in supplying one, Grötzsch took the first step toward the
+    creation of a theory of quasiconformal mappings.
+  </div>
+  <p><strong>Solution.</strong> We give Grötzsch's problem a precise meaning by saying $f$ is <em>most nearly
+    conformal</em> if $\sup D_f$ is as small as possible.</p>
+  <p>Let $R,R'$ be rectangles with sides $a,b$ and $a',b'$. Assume $a:b \le a':b'$ (otherwise swap $a,b$). The mapping
+    $f$ takes $a$-sides into $a$-sides and $b$-sides into $b$-sides.</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 420 160" role="img" aria-hidden="true">
+      <rect x="40" y="40" width="70" height="90" fill="none" stroke="#C7C5D4" stroke-width="1.3"/>
+      <text x="75" y="30" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="13" fill="#C7C5D4">R</text>
+      <text x="20" y="90" font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">b</text>
+      <text x="70" y="146" font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">a</text>
+      <line x1="130" y1="85" x2="185" y2="85" stroke="#9C99AC" stroke-width="1.1"/>
+      <polygon points="185,85 176,80 176,90" fill="#9C99AC"/>
+      <text x="140" y="75" font-family="Fraunces" font-style="italic" font-size="13" fill="#9C99AC">f</text>
+      <rect x="210" y="55" width="180" height="60" fill="none" stroke="#8B7FFF" stroke-width="1.3"/>
+      <text x="300" y="45" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="13" fill="#8B7FFF">R′</text>
+      <text x="196" y="88" font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">b′</text>
+      <text x="300" y="131" font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">a′</text>
+    </svg>
+    <figcaption>Mapping a square (or rectangle) $R$ onto a differently-proportioned rectangle $R'$, $a$-sides to $a$-sides.</figcaption>
+  </figure>
+
+  <p>We estimate $a'$ along a horizontal segment:
+    $$ a' = \left|\int_0^a df(x+iy)\right| \le \int_0^a |df(x+iy)| \le \int_0^a \big(|f_z|+|f_{\bar z}|\big)\,dx. $$
+    Since $b = \int_0^b dy$,
+    $$ a'b \le \int_0^a\!\!\int_0^b \big(|f_z|+|f_{\bar z}|\big)\,dx\,dy. $$
+    Squaring both sides,
+    $$ a'^2 b^2 \le \left(\int_0^a\!\!\int_0^b \big(|f_z|+|f_{\bar z}|\big)\,dx\,dy\right)^2. $$
+    Now bound the right side via <strong>Hölder's inequality</strong>: $\big(\int |fg|\,dx\big)^2 \le \int|f|^2dx \cdot \int|g|^2 dx$.
+    Apply this with $f(x,y) = \sqrt{\dfrac{|f_z|+|f_{\bar z}|}{|f_z|-|f_{\bar z}|}}$ and $g(x,y) = \sqrt{|f_z|^2-|f_{\bar z}|^2}$,
+    so $fg = |f_z|+|f_{\bar z}|$. Then
+    $$ \left(\int_0^a\!\!\int_0^b |f_z|+|f_{\bar z}|\,dx\,dy\right)^2 \le \int_0^a\!\!\int_0^b \frac{|f_z|+|f_{\bar z}|}{|f_z|-|f_{\bar z}|}\,dx\,dy \cdot \int_0^a\!\!\int_0^b \big(|f_z|^2-|f_{\bar z}|^2\big)\,dx\,dy. $$
+    Hence
+    $$ a'^2 b^2 \le \int_0^a\!\!\int_0^b D_f\,dx\,dy \cdot \int_0^a\!\!\int_0^b J\,dx\,dy = \int_0^a\!\!\int_0^b D_f\,dx\,dy \cdot a'b', $$
+    (the area integral of the Jacobian over $R$ is the area $a'b'$ of the image). Dividing through,
+    $$ \frac{a'^2 b^2}{a'b'ab} \le \frac{1}{ab}\int_0^a\!\!\int_0^b D_f\,dx\,dy, \qquad \text{i.e.} \qquad \frac{a'/b'}{a/b} \le \frac{1}{ab}\int_0^a\!\!\int_0^b D_f\,dx\,dy. $$
+    If $f$ is $K$-quasiconformal, the right side is at most $\dfrac{K}{ab}\displaystyle\int_0^a\!\!\int_0^b dx\,dy = K$. So
+    $$ \frac{a'/b'}{a/b} \le K. $$
+    The ratios $m=a/b$ and $m'=a'/b'$ are the <strong>moduli</strong> of $R$ and $R'$. There exists some $f$ attaining
+    the least maximum, i.e. $\sup D_f = m'/m$. We have proved:</p>
+  <div class="box theorem">
+    <span class="box-label">Result</span>
+    There exists a $K$-quasiconformal mapping of $R$ onto $R'$ if and only if $\dfrac{1}{K} \le \dfrac{m'}{m} \le K$.
+  </div>
+
+  <h2 id="examples">Examples</h2>
+  <p>These three examples illustrate quasiconformal mapping from a unit square $R=[0,1]\times[0,1]$ to a rectangle
+    $R'=[0,4]\times[0,1]$, together with the geometry behind each map.</p>
+
+  <h3>1. The affine map (the optimum)</h3>
+  <p>Let $f:\mathbb{C}\to\mathbb{C}$, $f(x,y) = (4x,y)$. In complex form:
+    $$ f(z) = \tfrac52 z + \tfrac32 \bar z, \qquad D_f \equiv 4. $$
+    This is exactly the affine form $f(z)=\alpha z+\beta\bar z$ with $\alpha=\tfrac52,\beta=\tfrac32$ real and constant.
+    Every image ellipse is the same circle-turned-$4{:}1$-ellipse: $\operatorname{avg}_R D_f = \sup_R D_f = 4$. This is
+    the theoretical minimum, attained.</p>
+
+  <h3>2. A non-affine competitor</h3>
+  <p>Let $f(x,y) = \big(4x,\ \tfrac32 y - \tfrac12 y^2\big)$. With $a'/a = 4$ and $b'/b = \tfrac12(3-2y)$,
+    $$ f(z) = \Big(\tfrac{11}{4} - \tfrac{y}{2}\Big) z + \Big(\tfrac54+\tfrac{y}{2}\Big)\bar z, \qquad D_f = \frac{4}{\tfrac32 - y} = \frac{8}{3-2y}. $$
+    The quadratic term shows this map is genuinely non-affine — not of the form $\alpha z+\beta\bar z$ — consistent
+    with $D_f$ depending on $y$. Ellipses flatten going up: $D_f$ runs from $\tfrac83 \approx 2.67$ at $y=0$ (better
+    than the affine map!) up to $8$ at $y=1$ (twice as bad).
+    $$ \operatorname{avg}_R D_f = \int_0^1 \frac{4}{\tfrac32-y}\,dy = 4\ln 3 \approx 4.39 \ge 4, \qquad \sup_R D_f = 8 \ge 4. $$
+    Being locally better forces a worse maximum — this map loses.</p>
+
+  <h3>3. A degenerate competitor</h3>
+  <p>Let $f(x,y) = (4x, y^2)$. Then $f_z = \tfrac12(4+2y)$, $f_{\bar z} = \tfrac12(4-2y)$, so
+    $$ f(z) = \tfrac12(4+2y)z + \tfrac12(4-2y)\bar z, \qquad D_f = \frac{\tfrac12(4+2y)+\tfrac12(4-2y)}{\tfrac12(4+2y)-\tfrac12(4-2y)} = \frac{4}{2y} = \frac{2}{y}. $$
+    Ellipses collapse toward the bottom edge, where $2y\to 0$:
+    $$ \operatorname{avg}_R D_f = \int_0^1 \frac{2}{y}\,dy = \infty, \qquad \sup_R D_f = \infty. $$
+    The bound $\sup D_f \ge 4$ holds vacuously — this competitor loses badly.</p>
+
+  <table class="results">
+    <tr><th>Map</th><th>Real form $(u,v)$</th><th>Complex form $f(z)$</th></tr>
+    <tr><td>1. Affine</td><td>$(4x,\,y)$</td><td>$\tfrac52 z + \tfrac32 \bar z$</td></tr>
+    <tr><td>2. Competitor</td><td>$\big(4x,\,\tfrac32y-\tfrac12y^2\big)$</td><td>$\big(\tfrac{11}4-\tfrac{y}2\big)z + \big(\tfrac54+\tfrac{y}2\big)\bar z$</td></tr>
+    <tr><td>3. Degenerate</td><td>$(4x,\,y^2)$</td><td>$\tfrac12(4+2y)z + \tfrac12(4-2y)\bar z$</td></tr>
+  </table>
+  <p>Only Example 1 is affine — linear in $z,\bar z$ with no higher powers. Examples 2 and 3 both carry a variable
+    coefficient, since both have a $y^2$ piece; differentiating it reintroduces $y$-dependence in $f_z,f_{\bar z}$,
+    which is exactly why $D_f$ varies with $y$ in those two cases but not the first. All three satisfy
+    $\iint_R J_f = 4 = \operatorname{area}(R')$, confirming they are genuine competitors onto the same target. Only
+    the affine map attains $\sup D_f = m'/m = 4$ — it is the unique minimiser.</p>
+
+  <h2 id="additional">Additional quasiconformal examples</h2>
+  <p>These examples illustrate other important classes of quasiconformal mappings, not restricted to the fixed
+    square-to-rectangle problem above.</p>
+
+  <h3>4. Global $K$-quasiconformal stretching</h3>
+  <p>Consider $f(z) = x+iKy$, $z=x+iy$, $K\ge 1$. In real coordinates $u=x,\ v=Ky$, so $Df = \begin{pmatrix}1&0\\0&K\end{pmatrix}$.
+    The complex derivatives are $f_z = \tfrac12(1+K)$, $f_{\bar z}=\tfrac12(1-K)$, so
+    $$ D_f = \frac{|f_z|+|f_{\bar z}|}{|f_z|-|f_{\bar z}|} = K \qquad\text{(constant)}. $$
+    The Jacobian is $J_f = K > 0$, so $f$ is globally $K$-quasiconformal. Geometrically, the vertical direction is
+    stretched by $K$ while the horizontal is unchanged — a circle becomes an ellipse with semi-axis ratio $K$.</p>
+
+  <h3>5. Spiral stretching</h3>
+  <p>Consider the linear map $f(z) = x + i(1-ci)y$, $c\in\mathbb{R}$. Since $i(1-ci) = c+i$, this is
+    $f(z) = x+cy+iy$, so $u=x+cy,\ v=y$, and $Df = \begin{pmatrix}1&c\\0&1\end{pmatrix}$ — a shear. The complex
+    derivatives are $f_z = 1-\tfrac{ic}2$, $f_{\bar z} = \tfrac{ic}2$, so $|f_z| = \sqrt{1+c^2/4}$, $|f_{\bar z}| = |c|/2$,
+    giving
+    $$ D_f = \frac{\sqrt{c^2+4}+|c|}{\sqrt{c^2+4}-|c|}. $$
+    The Jacobian is $J_f = |f_z|^2-|f_{\bar z}|^2 = 1$, so the map is orientation-preserving and quasiconformal for
+    every finite $c$ — a shear that can be viewed as a spiral-type distortion of infinitesimal shapes. For $c=0$ the
+    map is the identity and $D_f=1$.</p>
+
+  <h3>6. Radial stretching</h3>
+  <p>Consider $f(z) = z|z|^{\alpha-1}$, $\alpha>0$. Writing $z=re^{i\theta}$, $f(z) = r^\alpha e^{i\theta}$ — the
+    radial coordinate transforms as $r\mapsto r^\alpha$ while the angle is preserved. For $z\ne0$,
+    $$ f_z = \tfrac{\alpha+1}2|z|^{\alpha-1}, \qquad f_{\bar z} = \tfrac{\alpha-1}2|z|^{\alpha-1}\tfrac{z}{\bar z}, $$
+    so $|f_z| = \tfrac{\alpha+1}2|z|^{\alpha-1}$, $|f_{\bar z}| = \tfrac{|\alpha-1|}2|z|^{\alpha-1}$, giving
+    $$ D_f = \frac{\alpha+1+|\alpha-1|}{\alpha+1-|\alpha-1|} = \max\Big\{\alpha,\ \frac1\alpha\Big\}. $$
+    In particular $D_f=\alpha$ for $\alpha\ge1$ and $D_f=1/\alpha$ for $0<\alpha\le1$. The Jacobian $J_f = \alpha|z|^{2\alpha-2}>0$
+    for $z\ne0$. At $\alpha=1$, $f$ is the identity and conformal ($D_f=1$). So radial stretching gives a simple
+    example where the distortion is constant even though the amount of stretching depends on distance from the origin.</p>
+
+  <h3>7. Radial stretching with logarithmic twisting</h3>
+  <p>A more general example: $f(z) = z|z|^{\alpha-1+i\beta}$, $\alpha>0,\ \beta\in\mathbb{R}$. Since $|z|^{i\beta} = e^{i\beta\log|z|}$,
+    $$ f(z) = |z|^\alpha e^{i(\theta+\beta\log|z|)}, $$
+    so in polar coordinates $r\mapsto r^\alpha$, $\theta\mapsto \theta+\beta\log r$: $\alpha$ controls radial
+    stretching, $\beta$ controls logarithmic twisting. For $z\ne0$,
+    $$ f_z = \tfrac{\alpha+1+i\beta}2|z|^{\alpha-1+i\beta}, \qquad f_{\bar z} = \tfrac{\alpha-1+i\beta}2|z|^{\alpha-1+i\beta}\tfrac{z}{\bar z}, $$
+    and since $|z^{i\beta}|=1$,
+    $$ |f_z| = \frac{\sqrt{(\alpha+1)^2+\beta^2}}2|z|^{\alpha-1}, \qquad |f_{\bar z}| = \frac{\sqrt{(\alpha-1)^2+\beta^2}}2|z|^{\alpha-1}. $$
+    Therefore
+    $$ D_f = \frac{\sqrt{(\alpha+1)^2+\beta^2}+\sqrt{(\alpha-1)^2+\beta^2}}{\sqrt{(\alpha+1)^2+\beta^2}-\sqrt{(\alpha-1)^2+\beta^2}}, $$
+    equivalently,</p>
+  <div class="eq-box">
+    $$ D_f = \frac{\alpha^2+\beta^2+1+\sqrt{(\alpha^2+\beta^2+1)^2-4\alpha^2}}{2\alpha}. $$
+  </div>
+  <p>The Jacobian is $J_f = \alpha|z|^{2\alpha-2} > 0$. Hence, for $\alpha>0$, this is an orientation-preserving
+    quasiconformal mapping on $\mathbb{C}\setminus\{0\}$. When $\beta=0$, Example 7 reduces exactly to the radial
+    stretching of Example 6: $f(z) = z|z|^{\alpha-1}$. When additionally $\alpha=1$, $f(z)=z|z|^{i\beta} = ze^{i\beta\log|z|}$,
+    a pure logarithmic twist.</p>
+
+  <h3>Geometric picture: radial stretching</h3>
+  <p>The following figures show how a polar grid transforms under $f(z) = z|z|^{\alpha-1+i\beta}$, visualizing the
+    effects of radial stretching and logarithmic twisting side by side with the original grid.</p>
+
+  <figure class="fig">
+    <img src="assets/radial-alpha2-beta0.png" alt="Polar grid mapped under f(z) = z|z|^(alpha-1), alpha=2, beta=0, showing pure radial stretching with no twist">
+    <figcaption>$f(z) = z|z|^{\alpha-1}$, $\beta=0$, $\alpha=2$ — pure outward radial stretching, no twisting.</figcaption>
+  </figure>
+
+  <figure class="fig">
+    <img src="assets/radial-alpha1-betaneg1.png" alt="Polar grid mapped under f(z) = z|z|^(i beta), alpha=1, beta=-1, showing pure logarithmic twisting with no radial stretching">
+    <figcaption>$f(z) = z|z|^{\alpha-1+i\beta}$, $\alpha=1$, $\beta=-1<0$ — no radial stretching, pure clockwise logarithmic twisting.</figcaption>
+  </figure>
+
+  <figure class="fig">
+    <img src="assets/radial-alpha2-beta1.png" alt="Polar grid mapped under f(z) with alpha=2, beta=1, showing combined radial stretching and anti-clockwise twisting">
+    <figcaption>$f(z) = z|z|^{\alpha-1+i\beta}$, $\alpha=2$, $\beta=1>0$ — radial stretching combined with anti-clockwise twisting.</figcaption>
+  </figure>
+
+  <h2 id="code">Mathematica code</h2>
+  <p>The following code (used to generate the interactive version of the figures above) lets you visualize the
+    distortion for different values of $\alpha$ and $\beta$:</p>
+  <pre class="code-block"><span class="cm">ClearAll["Global`*"];</span>
+
+<span class="kw">Manipulate</span>[
+  Module[{radii, angles, f, circles, radialLines, imageCircles, imageLines},
+
+    f[z_] := z Abs[z]^(alpha - 1 + I beta);
+
+    radii = Range[0.4, 2.5, 0.4];
+    angles = Range[0, 2 Pi - Pi/12, Pi/12];
+
+    circles = Table[
+      ParametricPlot[{r Cos[t], r Sin[t]}, {t, 0, 2 Pi},
+        PlotStyle -> Directive[Gray, Thin]], {r, radii}];
+
+    radialLines = Table[
+      ParametricPlot[{r Cos[theta], r Sin[theta]}, {r, 0.05, 2.5},
+        PlotStyle -> Directive[Gray, Thin]], {theta, angles}];
+
+    imageCircles = Table[
+      ParametricPlot[
+        With[{w = f[r Exp[I t]]}, {Re[w], Im[w]}],
+        {t, 0, 2 Pi}, PlotStyle -> Directive[Blue, Thick]],
+      {r, radii}];
+
+    imageLines = Table[
+      ParametricPlot[
+        With[{w = f[r Exp[I theta]]}, {Re[w], Im[w]}],
+        {r, 0.05, 2.5}, PlotStyle -> Directive[Red, Thick]],
+      {theta, angles}];
+
+    GraphicsGrid[{{Show[circles, radialLines,
+        PlotRange -> {{-3, 3}, {-3, 3}}, AspectRatio -> 1,
+        Axes -> True, PlotLabel -> "Original Grid"],
+
+      Show[imageCircles, imageLines,
+        PlotRange -> {{-5, 5}, {-5, 5}}, AspectRatio -> 1,
+        Axes -> True,
+        PlotLabel -> Row[{"Image under f(z) = z |z|^(\[Alpha]-1+i\[Beta])",
+          "\n", "\[Alpha] = ", alpha, ", \[Beta] = ", beta}]]
+    }}]],
+
+  {{alpha, 1.5, "\[Alpha] (radial stretching)"}, 0.5, 2.5, 0.1,
+    Appearance -> "Labeled"},
+
+  {{beta, 0, "\[Beta] (logarithmic twist)"}, -2, 2, 0.05,
+    Appearance -> "Labeled"},
+
+  ControlPlacement -> Top
+]</pre>
+
+  <div class="nav-footer">
+    <a href="dilatation.html">← Dilatation & Stretching</a>
+    <a href="../notes.html">Notes index →</a>
+  </div>
+</div>
+</body>
+</html>

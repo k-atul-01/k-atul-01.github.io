@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isometries in Various Spaces — Notes — Atul Kumar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+<style>
+  :root{
+    --paper:#0A0A10; --ink:#F2F1F6; --ink-soft:#C7C5D4; --muted:#9C99AC;
+    --indigo:#8B7FFF; --amber:#F3B860; --line:rgba(255,255,255,0.14);
+    --card:rgba(16,15,22,0.92); --maxw:760px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Inter', system-ui, sans-serif; line-height:1.7; font-size:16px;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:56px 28px 110px;}
+  a.back{font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--amber); text-decoration:none;}
+  a.back:hover{text-decoration:underline;}
+  h1{font-family:'Fraunces', serif; font-weight:600; font-size:2rem; margin:20px 0 6px; color:#fff; line-height:1.15;}
+  .meta{color:var(--muted); font-size:0.9rem; margin-bottom:10px; font-family:'IBM Plex Mono', monospace;}
+  .abstract{color:var(--ink-soft); font-style:italic; border-left:2px solid var(--line); padding-left:16px; margin:28px 0 40px;}
+  h2{font-family:'Fraunces', serif; font-weight:600; font-size:1.45rem; color:#fff; margin-top:52px; margin-bottom:16px;
+     padding-bottom:10px; border-bottom:1px solid var(--line);}
+  h3{font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem; color:#fff; margin-top:34px; margin-bottom:10px;}
+  p{color:var(--ink-soft); margin:14px 0;}
+  ol, ul{color:var(--ink-soft);}
+  li{margin-bottom:6px;}
+  strong{color:#fff;}
+
+  .box{
+    margin:22px 0; padding:18px 20px; border-radius:10px;
+    background:var(--card); border:1px solid var(--line);
+  }
+  .box-label{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:600;
+    color:var(--indigo); margin-bottom:6px; display:block;
+  }
+  .box.theorem{border-left:3px solid var(--indigo);}
+  .box.definition{border-left:3px solid var(--amber);}
+  .box.example{border-left:3px solid #4FAE8E;}
+  .box.remark{border-left:3px solid var(--muted);}
+
+  .proof{margin:16px 0 22px 0; color:var(--ink-soft);}
+  .proof-label{font-style:italic; color:var(--ink);}
+  .qed-mark{float:right; color:var(--indigo); font-family:'IBM Plex Mono', monospace;}
+
+  .eq-box{
+    display:block; text-align:center; margin:18px 0; padding:14px;
+    border:1px solid rgba(243,184,96,0.4); border-radius:8px;
+    background:rgba(243,184,96,0.07);
+  }
+
+  figure.fig{margin:28px 0; text-align:center;}
+  figure.fig img{max-width:100%; border-radius:10px; background:white; padding:6px;}
+  figure.fig svg{max-width:100%; height:auto;}
+  figcaption{color:var(--muted); font-size:0.85rem; margin-top:10px; font-style:italic;}
+
+  table.results{width:100%; border-collapse:collapse; margin:20px 0; font-size:0.92rem;}
+  table.results th, table.results td{border:1px solid var(--line); padding:8px 12px; text-align:left; color:var(--ink-soft);}
+  table.results th{color:#fff; font-family:'IBM Plex Mono', monospace; font-weight:500; font-size:0.82rem;}
+
+  pre.code-block{
+    background:#0E0D14; border:1px solid var(--line); border-radius:10px;
+    padding:18px; overflow-x:auto; font-family:'IBM Plex Mono', monospace;
+    font-size:0.82rem; color:#C7C5D4; line-height:1.55; margin:20px 0;
+  }
+  pre.code-block .cm{color:var(--muted);}
+  pre.code-block .kw{color:var(--amber);}
+
+  .contents-list{
+    list-style:none; padding:0; margin:0; font-family:'IBM Plex Mono', monospace; font-size:0.88rem;
+  }
+  .contents-list li{margin-bottom:6px;}
+  .contents-list a{color:var(--ink-soft); text-decoration:none;}
+  .contents-list a:hover{color:var(--amber);}
+
+  .nav-footer{
+    margin-top:70px; padding-top:24px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.85rem;
+  }
+  .nav-footer a{color:var(--amber); text-decoration:none;}
+  .nav-footer a:hover{text-decoration:underline;}
+
+  @media (max-width:640px){
+    .wrap{padding:40px 20px 80px;}
+    h1{font-size:1.6rem;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../notes.html">← Back to Notes</a>
+  <h1>Isometries in Various Spaces</h1>
+  <div class="meta">Seminar Project · Under Prof. S. Ponnusamy, IIT Madras</div>
+
+  <p class="abstract">
+    These notes are results of a discussion/seminar project under the supervision of Prof. S. Ponnusamy,
+    based on the book <em>The Theory of Higher-Dimensional Quasiconformal Mappings</em> by F. W. Gehring,
+    G. J. Martin, and B. P. Palka. This section covers various examples of isometries.
+  </p>
+
+  <h2>Definitions</h2>
+
+  <div class="box definition">
+    <span class="box-label">Definition 0.1 (Isometry)</span>
+    Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces. A map $f : X \to Y$ is an <strong>isometric embedding</strong>
+    (or distance-preserving map) if
+    <span class="eq-box">$$ d_Y\big(f(a), f(b)\big) = d_X(a,b) \quad \text{for all } a, b \in X. $$</span>
+    If in addition $f$ is surjective, $f$ is called an <strong>isometry</strong>, and $X$ and $Y$ are said to be
+    <strong>isometric</strong>.
+  </div>
+
+  <div class="box definition">
+    <span class="box-label">Definition 0.2 (Isometry of normed spaces)</span>
+    Let $(X, \|\cdot\|_X)$ and $(Y, \|\cdot\|_Y)$ be normed linear spaces over $\mathbb{K} = \mathbb{R}$ or $\mathbb{C}$,
+    each metrised by $d(x,y) = \|x-y\|$. A map $f : X \to Y$ is an isometry (or isometric embedding) if
+    <span class="eq-box">$$ \|f(x) - f(y)\|_Y = \|x - y\|_X \quad \text{for all } x, y \in X. $$</span>
+    If $f$ is in addition surjective, $X$ and $Y$ are isometric.
+  </div>
+
+  <div class="box definition">
+    <span class="box-label">Definition 0.3 (Linear isometry)</span>
+    A linear map $T : X \to Y$ is a <strong>linear isometry</strong> if
+    <span class="eq-box">$$ \|Tx\|_Y = \|x\|_X \quad \text{for all } x \in X. $$</span>
+    A surjective linear isometry is an <strong>isometric isomorphism</strong>, written $X \cong Y$ isometrically.
+  </div>
+
+  <div class="box remark">
+    <span class="box-label">Remark 0.4 (Immediate consequences)</span>
+    <ol>
+      <li>Injectivity is automatic: if $f(a) = f(b)$ then $d_X(a,b) = d_Y(f(a), f(b)) = 0$, so $a = b$.</li>
+      <li>Continuity is automatic — indeed uniform continuity with $\delta = \varepsilon$. An isometric embedding is a homeomorphism onto its image.</li>
+      <li>If $f$ is a bijective isometry then $f^{-1}$ is an isometry too.</li>
+    </ol>
+  </div>
+
+  <div class="proof">
+    <span class="proof-label">Proof (of point 3).</span>
+    Define $f^{-1} : Y \to X$. Given $y, y' \in Y$, since $f$ is surjective there exist $x, x' \in X$ with
+    $f(x) = y$, $f(x') = y'$, and these are unique since $f$ is injective; that is, $x = f^{-1}(y)$, $x' = f^{-1}(y')$.
+    Since $f$ is an isometry,
+    $$ d_Y(y, y') = d_Y\big(f(x), f(x')\big) = d_X(x, x') = d_X\big(f^{-1}(y), f^{-1}(y')\big). $$
+    As $y, y' \in Y$ were arbitrary, $f^{-1}$ preserves distances, i.e. $f^{-1}$ is an isometry.
+    <span class="qed-mark">∎</span>
+  </div>
+
+  <h2 id="examples">Examples of Isometries</h2>
+
+  <h3>1. The line</h3>
+  <p>Let $f : \mathbb{R} \to \mathbb{R}$ be given by $f(x) = \alpha x + c$ with $\alpha = \pm 1$, $c \in \mathbb{R}$.</p>
+
+  <h3>2. Translations</h3>
+  <p>Let $f_v : \mathbb{R}^n \to \mathbb{R}^n$ for $v \in \mathbb{R}^n$, defined by $f_v(x) = x + v$ on $\mathbb{R}^n$.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 420 220" role="img" aria-hidden="true">
+      <defs>
+        <marker id="arrow1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8B7FFF"/></marker>
+      </defs>
+      <g stroke="#DEDCE8" stroke-width="1">
+        <line x1="40" y1="110" x2="380" y2="110"/>
+        <line x1="90" y1="20" x2="90" y2="200"/>
+      </g>
+      <g font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">
+        <text x="384" y="114">x1</text>
+        <text x="80" y="18">x2</text>
+      </g>
+      <g stroke="#F3B860" stroke-width="1.3" fill="none" opacity="0.8">
+        <polygon points="130,150 170,150 190,120 150,120" />
+        <text x="110" y="168" font-family="Fraunces" font-style="italic" font-size="13" fill="#F3B860">x, y, z</text>
+      </g>
+      <g stroke="#8B7FFF" stroke-width="1.3" fill="none" opacity="0.9">
+        <polygon points="230,90 270,90 290,60 250,60" />
+        <text x="295" y="55" font-family="Fraunces" font-style="italic" font-size="13" fill="#8B7FFF">x+v, y+v, z+v</text>
+      </g>
+      <g stroke="#8B7FFF" stroke-width="1.3" marker-end="url(#arrow1)">
+        <line x1="150" y1="135" x2="250" y2="75"/>
+      </g>
+      <text x="185" y="98" font-family="Fraunces" font-style="italic" font-size="13" fill="#8B7FFF">v</text>
+    </svg>
+    <figcaption>Translation $f_v(x) = x + v$ moves every point by the same vector $v$.</figcaption>
+  </figure>
+
+  <h3>3. Same set, different metric</h3>
+  <p>Let $X = (0, \infty)$ and define $d(x,y) = |\log x - \log y|$ for $x, y \in X$.</p>
+  <p><strong>$d$ is a metric.</strong> Non-negativity and symmetry are immediate. Moreover $d(x,y) = 0 \iff \log x = \log y \iff x = y$
+    by injectivity of $\log$, and the triangle inequality is inherited from $\mathbb{R}$, since $d$ is the absolute-value
+    metric pulled back along $\log$:
+    $$ d(x,z) = |\log x - \log z| \le |\log x - \log y| + |\log y - \log z| = d(x,y) + d(y,z). $$</p>
+  <p><strong>The isometry.</strong> The map $\log : \big((0,\infty), d\big) \to \big(\mathbb{R}, |\cdot|\big)$ satisfies
+    $d(x,y) = |\log x - \log y|$ for all $x,y \in X$ by the definition of $d$, and it is a bijection. Hence $\log$
+    is a surjective isometry, so $\big((0,\infty), d\big)$ and $\mathbb{R}$ are indistinguishable as metric spaces.</p>
+
+  <h3>4. Rigid motions of $\mathbb{R}^n$</h3>
+  <p>Let $f : \mathbb{R}^n \to \mathbb{R}^n$ be given by $f(x) = Ax + b$ with $A \in O(n)$ and $b \in \mathbb{R}^n$.
+    Every distance-preserving self-map of $\mathbb{R}^n$ is of this form.</p>
+
+  <h3>5. The shift on $\ell^p$</h3>
+  <p>Let $S : \ell^p \to \ell^p$ with $S(x_1, x_2, \dots) = (0, x_1, x_2, \dots)$. This satisfies $\|Sx\|_p = \|x\|_p$.
+    This is an example of a map which is an isometry but <em>not</em> surjective.</p>
+
+  <h3>6. Discrete metric</h3>
+  <p>If $d(x,y) = 1$ for all $x \ne y$, every bijection is an isometry. Distance-preservation constrains a map only
+    as much as the metric is rich.</p>
+
+  <h3>7. Holomorphic isometries of $\mathbb{C}$</h3>
+  <p>Let $f : \mathbb{C} \to \mathbb{C}$ with $f(z) = az + b$ and $|a| = 1$; this is an isometry.</p>
+  <figure class="fig">
+    <svg viewBox="0 0 520 190" role="img" aria-hidden="true">
+      <g transform="translate(60,95)">
+        <polygon points="-20,-20 20,-20 30,10 -10,10" fill="none" stroke="#C7C5D4" stroke-width="1.3"/>
+        <circle cx="0" cy="0" r="2" fill="#C7C5D4"/>
+        <text x="-30" y="-28" font-family="Fraunces" font-style="italic" font-size="12" fill="#C7C5D4">A B D C</text>
+      </g>
+      <g stroke="#8B7FFF" stroke-width="1.1"><line x1="110" y1="95" x2="175" y2="95"/></g>
+      <text x="120" y="88" font-family="Fraunces" font-style="italic" font-size="12" fill="#8B7FFF">z ↦ az</text>
+      <g transform="translate(260,95) rotate(20)">
+        <polygon points="-20,-20 20,-20 30,10 -10,10" fill="none" stroke="#F3B860" stroke-width="1.3"/>
+        <circle cx="0" cy="0" r="2" fill="#F3B860"/>
+        <text x="-34" y="-28" font-family="Fraunces" font-style="italic" font-size="12" fill="#F3B860" transform="rotate(-20)">A′ B′ C′ D′</text>
+      </g>
+      <g stroke="#8B7FFF" stroke-width="1.1"><line x1="310" y1="95" x2="375" y2="95"/></g>
+      <text x="315" y="88" font-family="Fraunces" font-style="italic" font-size="12" fill="#8B7FFF">w ↦ w + b</text>
+      <g transform="translate(460,60) rotate(20)">
+        <polygon points="-20,-20 20,-20 30,10 -10,10" fill="none" stroke="#4FAE8E" stroke-width="1.3"/>
+        <circle cx="0" cy="0" r="2" fill="#4FAE8E"/>
+        <text x="-38" y="-28" font-family="Fraunces" font-style="italic" font-size="12" fill="#4FAE8E" transform="rotate(-20)">A″ B″ C″ D″</text>
+      </g>
+    </svg>
+    <figcaption>The map $f(z) = az+b$ with $|a|=1$, factored as $z \mapsto az$ (rotation about the origin through $\arg a$)
+      followed by $w \mapsto w+b$ (translation by $b$). Both steps are isometries, hence so is $f$.</figcaption>
+  </figure>
+
+  <h3>8. Stereographic projection and the chordal metric</h3>
+  <p>Let $S^n = \{x \in \mathbb{R}^{n+1} : |x| = 1\}$ with north pole $e_{n+1}$, and let
+    $$ \pi : S^n \setminus \{e_{n+1}\} \to \mathbb{R}^n, \qquad \pi(x_1,\dots,x_{n+1}) = \frac{(x_1,\dots,x_n)}{1 - x_{n+1}} $$
+    be stereographic projection. Extend $\pi$ to $\overline{\mathbb{R}}^n := \mathbb{R}^n \cup \{\infty\}$ by setting
+    $\pi(e_{n+1}) = \infty$, so that $\pi : S^n \to \overline{\mathbb{R}}^n$ is a bijection, and define the
+    <strong>chordal metric</strong> $q$ on $\overline{\mathbb{R}}^n$ by
+    $$ q(y,z) := \big|\pi^{-1}(y) - \pi^{-1}(z)\big|, $$
+    the Euclidean distance in $\mathbb{R}^{n+1}$ between the corresponding points of the sphere. Then
+    $\pi : (S^n, |\cdot|) \to (\overline{\mathbb{R}}^n, q)$ is a surjective isometry, and explicitly
+    $$ q(y,z) = \frac{2|y-z|}{\sqrt{1+|y|^2}\sqrt{1+|z|^2}}, \qquad q(y,\infty) = \frac{2}{\sqrt{1+|y|^2}}. $$</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 460 260" role="img" aria-hidden="true">
+      <ellipse cx="230" cy="150" rx="140" ry="80" fill="none" stroke="#C7C5D4" stroke-width="1.2"/>
+      <ellipse cx="230" cy="150" rx="140" ry="30" fill="none" stroke="#C7C5D4" stroke-width="0.8" opacity="0.6"/>
+      <circle cx="230" cy="30" r="3" fill="#F3B860"/>
+      <text x="238" y="26" font-family="Fraunces" font-style="italic" font-size="13" fill="#F3B860">e_{n+1}</text>
+      <circle cx="160" cy="120" r="3" fill="#8B7FFF"/>
+      <text x="130" y="108" font-family="Fraunces" font-style="italic" font-size="13" fill="#8B7FFF">u</text>
+      <circle cx="300" cy="135" r="3" fill="#8B7FFF"/>
+      <text x="308" y="125" font-family="Fraunces" font-style="italic" font-size="13" fill="#8B7FFF">v</text>
+      <line x1="230" y1="30" x2="60" y2="230" stroke="#4FAE8E" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="230" y1="30" x2="380" y2="235" stroke="#4FAE8E" stroke-width="1" stroke-dasharray="3,3"/>
+      <circle cx="80" cy="222" r="3" fill="#4FAE8E"/>
+      <text x="55" y="240" font-family="Fraunces" font-style="italic" font-size="13" fill="#4FAE8E">π(u)</text>
+      <circle cx="362" cy="226" r="3" fill="#4FAE8E"/>
+      <text x="368" y="244" font-family="Fraunces" font-style="italic" font-size="13" fill="#4FAE8E">π(v)</text>
+      <line x1="70" y1="226" x2="370" y2="228" stroke="#9C99AC" stroke-width="1"/>
+      <text x="190" y="218" font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">|π(u) − π(v)|</text>
+      <line x1="160" y1="120" x2="300" y2="135" stroke="#9C99AC" stroke-width="1"/>
+      <text x="195" y="115" font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">|u − v|</text>
+    </svg>
+    <figcaption>The chordal metric. By definition $q\big(\pi(u),\pi(v)\big) = |u-v|$, so
+      $\pi : (S^n, d_S) \to (\mathbb{R}^n, q)$ is an isometry. Note that $q\big(\pi(u),\pi(v)\big)$ is <em>not</em>
+      the length of the segment joining $\pi(u)$ and $\pi(v)$ in $\mathbb{R}^n$.</figcaption>
+  </figure>
+
+  <div class="nav-footer">
+    <a href="../notes.html">← Notes index</a>
+    <a href="dilatation.html">Dilatation & Stretching →</a>
+  </div>
+</div>
+</body>
+</html>

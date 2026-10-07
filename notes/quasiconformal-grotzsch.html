@@ -301,24 +301,16 @@
     a pure logarithmic twist.</p>
 
   <h3>Geometric picture: radial stretching</h3>
-  <p>The following figures show how a polar grid transforms under $f(z) = z|z|^{\alpha-1+i\beta}$, visualizing the
+  <p>The following visuals show how a polar grid transforms under $f(z) = z|z|^{\alpha-1+i\beta}$, visualizing the
     effects of radial stretching and logarithmic twisting side by side with the original grid.</p>
-
-  <figure class="fig">
-    <img src="assets/radial-alpha2-beta0.png" alt="Polar grid mapped under f(z) = z|z|^(alpha-1), alpha=2, beta=0, showing pure radial stretching with no twist">
-    <figcaption>$f(z) = z|z|^{\alpha-1}$, $\beta=0$, $\alpha=2$ — pure outward radial stretching, no twisting.</figcaption>
-  </figure>
-
-  <figure class="fig">
-    <img src="assets/radial-alpha1-betaneg1.png" alt="Polar grid mapped under f(z) = z|z|^(i beta), alpha=1, beta=-1, showing pure logarithmic twisting with no radial stretching">
-    <figcaption>$f(z) = z|z|^{\alpha-1+i\beta}$, $\alpha=1$, $\beta=-1<0$ — no radial stretching, pure clockwise logarithmic twisting.</figcaption>
-  </figure>
-
-  <figure class="fig">
-    <img src="assets/radial-alpha2-beta1.png" alt="Polar grid mapped under f(z) with alpha=2, beta=1, showing combined radial stretching and anti-clockwise twisting">
-    <figcaption>$f(z) = z|z|^{\alpha-1+i\beta}$, $\alpha=2$, $\beta=1>0$ — radial stretching combined with anti-clockwise twisting.</figcaption>
-  </figure>
-
+<iframe 
+  src="https://www.wolframcloud.com/obj/d37cedd7-047f-456f-b51e-2e9e60bfd7c1" 
+  width="100%" 
+  height="500" 
+  style="border:none; border-radius:12px; background:white;"
+  loading="lazy">
+</iframe>
+  
   <h2 id="code">Mathematica code</h2>
   <p>The following code (used to generate the interactive version of the figures above) lets you visualize the
     distortion for different values of $\alpha$ and $\beta$:</p>

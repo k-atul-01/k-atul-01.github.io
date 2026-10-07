@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dilatation, Differentiability and Maximal/Minimal Stretching — Notes — Atul Kumar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+<style>
+  :root{
+    --paper:#0A0A10; --ink:#F2F1F6; --ink-soft:#C7C5D4; --muted:#9C99AC;
+    --indigo:#8B7FFF; --amber:#F3B860; --line:rgba(255,255,255,0.14);
+    --card:rgba(16,15,22,0.92); --maxw:760px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Inter', system-ui, sans-serif; line-height:1.7; font-size:16px;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:56px 28px 110px;}
+  a.back{font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--amber); text-decoration:none;}
+  a.back:hover{text-decoration:underline;}
+  h1{font-family:'Fraunces', serif; font-weight:600; font-size:2rem; margin:20px 0 6px; color:#fff; line-height:1.15;}
+  .meta{color:var(--muted); font-size:0.9rem; margin-bottom:10px; font-family:'IBM Plex Mono', monospace;}
+  .abstract{color:var(--ink-soft); font-style:italic; border-left:2px solid var(--line); padding-left:16px; margin:28px 0 40px;}
+  h2{font-family:'Fraunces', serif; font-weight:600; font-size:1.45rem; color:#fff; margin-top:52px; margin-bottom:16px;
+     padding-bottom:10px; border-bottom:1px solid var(--line);}
+  h3{font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem; color:#fff; margin-top:34px; margin-bottom:10px;}
+  p{color:var(--ink-soft); margin:14px 0;}
+  ol, ul{color:var(--ink-soft);}
+  li{margin-bottom:6px;}
+  strong{color:#fff;}
+
+  .box{
+    margin:22px 0; padding:18px 20px; border-radius:10px;
+    background:var(--card); border:1px solid var(--line);
+  }
+  .box-label{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:600;
+    color:var(--indigo); margin-bottom:6px; display:block;
+  }
+  .box.theorem{border-left:3px solid var(--indigo);}
+  .box.definition{border-left:3px solid var(--amber);}
+  .box.example{border-left:3px solid #4FAE8E;}
+  .box.remark{border-left:3px solid var(--muted);}
+
+  .proof{margin:16px 0 22px 0; color:var(--ink-soft);}
+  .proof-label{font-style:italic; color:var(--ink);}
+  .qed-mark{float:right; color:var(--indigo); font-family:'IBM Plex Mono', monospace;}
+
+  .eq-box{
+    display:block; text-align:center; margin:18px 0; padding:14px;
+    border:1px solid rgba(243,184,96,0.4); border-radius:8px;
+    background:rgba(243,184,96,0.07);
+  }
+
+  figure.fig{margin:28px 0; text-align:center;}
+  figure.fig img{max-width:100%; border-radius:10px; background:white; padding:6px;}
+  figure.fig svg{max-width:100%; height:auto;}
+  figcaption{color:var(--muted); font-size:0.85rem; margin-top:10px; font-style:italic;}
+
+  table.results{width:100%; border-collapse:collapse; margin:20px 0; font-size:0.92rem;}
+  table.results th, table.results td{border:1px solid var(--line); padding:8px 12px; text-align:left; color:var(--ink-soft);}
+  table.results th{color:#fff; font-family:'IBM Plex Mono', monospace; font-weight:500; font-size:0.82rem;}
+
+  pre.code-block{
+    background:#0E0D14; border:1px solid var(--line); border-radius:10px;
+    padding:18px; overflow-x:auto; font-family:'IBM Plex Mono', monospace;
+    font-size:0.82rem; color:#C7C5D4; line-height:1.55; margin:20px 0;
+  }
+  pre.code-block .cm{color:var(--muted);}
+  pre.code-block .kw{color:var(--amber);}
+
+  .contents-list{
+    list-style:none; padding:0; margin:0; font-family:'IBM Plex Mono', monospace; font-size:0.88rem;
+  }
+  .contents-list li{margin-bottom:6px;}
+  .contents-list a{color:var(--ink-soft); text-decoration:none;}
+  .contents-list a:hover{color:var(--amber);}
+
+  .nav-footer{
+    margin-top:70px; padding-top:24px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.85rem;
+  }
+  .nav-footer a{color:var(--amber); text-decoration:none;}
+  .nav-footer a:hover{text-decoration:underline;}
+
+  @media (max-width:640px){
+    .wrap{padding:40px 20px 80px;}
+    h1{font-size:1.6rem;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../notes.html">← Notes index</a>
+  <h1>Dilatation, Differentiability and<br>Maximal/Minimal Stretching</h1>
+  <div class="meta">Seminar Notes · Higher-Dimensional Quasiconformal Mappings · Under Prof. S. Ponnusamy</div>
+
+  <ul class="contents-list">
+    <li><a href="#prelim">1. Preliminaries on differentiability</a></li>
+    <li><a href="#stretch">2. Stretching of a linear map</a></li>
+    <li><a href="#dilatations">3. Dilatations</a></li>
+    <li><a href="#maxmin">4. Maximal and minimal stretching of a map</a></li>
+    <li><a href="#ex1">5. Example 1</a></li>
+    <li><a href="#ex2">6. Example 2</a></li>
+  </ul>
+
+  <h2 id="prelim">1. Preliminaries on differentiability</h2>
+
+  <h3>1.1 Partial derivatives and the classes $C^k$</h3>
+  <div class="box definition">
+    <span class="box-label">Definition 1.1</span>
+    Let $f : A \subseteq \mathbb{R}^n \to \mathbb{R}^m$. The $i$-th partial derivative of $f$ at $x$ is
+    $$ \partial_i f(x) = \lim_{t \to 0} \frac{f(x + t e_i) - f(x)}{t}, $$
+    where $e_i$ is the $i$-th standard basis vector.
+  </div>
+  <p>Let $U \subseteq \mathbb{R}^n$ be open and nonempty.</p>
+  <ul>
+    <li>$C^0(U, \mathbb{R}^m)$ denotes the set of continuous functions $U \to \mathbb{R}^m$.</li>
+    <li>For $k \geq 1$,
+      $$ C^k(U,\mathbb{R}^m) = \Big\{ f \in C^0(U,\mathbb{R}^m) \;\Big|\; \text{all partials } \partial_{i_1}\partial_{i_2}\cdots\partial_{i_l} f \text{ exist and are continuous on } U \Big\}, $$
+      where $1 \le l \le k$. For such $f$ the order of differentiation is immaterial: $\partial_{i_1}\cdots\partial_{i_l} f = \partial_{i_l}\cdots\partial_{i_1} f$.</li>
+    <li>$C^\infty(U,\mathbb{R}^m) = \bigcap_{k=0}^{\infty} C^k(U,\mathbb{R}^m)$.</li>
+    <li>For $0 \le k \le \infty$, $C_0^k(U,\mathbb{R}^m) = \{ f \in C^k(U,\mathbb{R}^m) \mid \operatorname{supp}(f) \text{ is a compact subset of } U \}$.</li>
+  </ul>
+
+  <h3>1.2 The Wirtinger derivatives</h3>
+  <p>From $z = x+iy$ and $\bar z = x-iy$ we may solve for the real coordinates, $x = \tfrac{z+\bar z}{2}$, $y = \tfrac{z-\bar z}{2i}$,
+    and if we pretend $z,\bar z$ are independent variables replacing $x,y$, the chain rule gives</p>
+  $$ \frac{\partial}{\partial z} = \frac{\partial x}{\partial z}\frac{\partial}{\partial x} + \frac{\partial y}{\partial z}\frac{\partial}{\partial y}
+     = \frac{1}{2}\frac{\partial}{\partial x} + \frac{1}{2i}\frac{\partial}{\partial y}
+     = \frac{1}{2}\Big(\frac{\partial}{\partial x} - i\frac{\partial}{\partial y}\Big) = \partial, $$
+  <p>and similarly $\dfrac{\partial}{\partial \bar z} = \dfrac12\Big(\dfrac{\partial}{\partial x} + i\dfrac{\partial}{\partial y}\Big) = \bar\partial$.</p>
+  <p>Identifying $\mathbb{C}$ with $\mathbb{R}^2$ by $z = x+iy$, define</p>
+  $$ \partial = \tfrac12(\partial_1 - i\partial_2) = \tfrac12\Big(\tfrac{\partial}{\partial x} - i\tfrac{\partial}{\partial y}\Big), \qquad
+     \bar\partial = \tfrac12(\partial_1 + i\partial_2) = \tfrac12\Big(\tfrac{\partial}{\partial x} + i\tfrac{\partial}{\partial y}\Big). $$
+  <p>In this notation the Cauchy–Riemann equation is simply $\bar\partial f = 0$, so $f$ is holomorphic precisely when its $\bar\partial$-derivative vanishes.</p>
+
+  <h3>1.3 Differentiability in complex form</h3>
+  <p>Let $f : A \to \mathbb{C}$ with $A \subseteq \mathbb{C}$, and let $T(h) = \lim_{t\to 0} \dfrac{f(z+th)-f(z)}{t}$ be the derivative of $f$ at $z$, regarded as an $\mathbb{R}$-linear map $\mathbb{C} \to \mathbb{C}$.</p>
+  <div class="box theorem">
+    <span class="box-label">Theorem 1.1</span>
+    $$ T(h) = \partial f(z)\, h \;+\; \bar\partial f(z)\, \bar h. $$
+  </div>
+  <div class="proof">
+    <span class="proof-label">Proof.</span> Taking $h=1$, $T(1) = \lim_{t\to 0} \dfrac{f(z+t)-f(z)}{t} = f_x$, and similarly $T(i) = f_y$.
+    Since $T$ is $\mathbb{R}$-linear, writing $h = h_1 + ih_2$ with $h_1,h_2 \in \mathbb{R}$ gives
+    $T(h) = h_1 T(1) + h_2 T(i) = h_1 f_x + h_2 f_y$. Now from $h = h_1+ih_2$ and $\bar h = h_1 - ih_2$,
+    $h_1 = \tfrac{h+\bar h}{2}$, $h_2 = \tfrac{h-\bar h}{2i}$, so
+    $$ T(h) = \Big(\frac{h+\bar h}{2}\Big) f_x + \Big(\frac{h-\bar h}{2i}\Big) f_y. $$
+    Using $\tfrac{1}{2i} = -\tfrac{i}{2}$ and collecting the coefficients of $h$ and $\bar h$,
+    $$ T(h) = \tfrac12(f_x - if_y)\,h + \tfrac12(f_x+if_y)\,\bar h = \partial f(z)\,h + \bar\partial f(z)\,\bar h. $$
+    <span class="qed-mark">∎</span>
+  </div>
+
+  <h3>1.4 Standard theorems</h3>
+  <div class="box theorem">
+    <span class="box-label">Theorem 1.2 (Chain rule; 2.8.1)</span>
+    Let $A \subseteq \mathbb{R}^n$ and $B \subseteq \mathbb{R}^m$. If $f : A \to \mathbb{R}^m$ is differentiable at a point $x$
+    and $g : B \to \mathbb{R}^p$ is differentiable at $y = f(x)$, then the composite $g \circ f : A \cap f^{-1}(B) \to \mathbb{R}^p$
+    is differentiable at $x$, and its derivative matrix satisfies $(g\circ f)'(x) = g'(y)\, f'(x)$.
+  </div>
+  <div class="box theorem">
+    <span class="box-label">Theorem 1.3 (Differentiability of the inverse; 2.8.2)</span>
+    Let $A \subseteq \mathbb{R}^n$ and let $f : A \to \mathbb{R}^n$ be injective. Suppose $f$ is continuous in some
+    neighbourhood of a point $x$, that $f$ is differentiable at $x$ itself, and that $f'(x)$ is nonsingular. Then
+    $y = f(x)$ is an interior point of $f(A)$, the function $g = f^{-1} : f(A) \to A$ is differentiable at $y$, and
+    $g'(y) = f'(x)^{-1}$.
+  </div>
+  <div class="box theorem">
+    <span class="box-label">Theorem 1.4 (Inverse function theorem; 2.8.3)</span>
+    Let $U$ be open in $\mathbb{R}^n$ and $f \in C^k(U,\mathbb{R}^n)$ with $1 \le k \le \infty$. If $x \in U$ is a point
+    at which the Jacobian satisfies $J_f(x) \ne 0$, then there exists $r>0$ such that the restriction of $f$ to the
+    ball $B = B_n(x,r)$ is a $C^k$-diffeomorphism of $B$ onto $f(B)$.
+  </div>
+
+  <h2 id="stretch">2. Stretching of a linear map</h2>
+  <p>A linear map does not scale all directions equally: a unit vector may be lengthened in one direction and
+    shortened in another. The two extreme factors are the maximal and minimal stretching.</p>
+  <div class="box definition">
+    <span class="box-label">Definition 2.1</span>
+    Let $T : \mathbb{R}^n \to \mathbb{R}^n$ be linear. Define
+    $$ L(T) = \max_{|H|=1} |TH|, \qquad \ell(T) = \min_{|H|=1} |TH|. $$
+    Both extrema are attained: $H \mapsto |TH|$ is continuous and the unit sphere $S^{n-1}$ is compact.
+    By homogeneity, for every $H \in \mathbb{R}^n$, $\ell(T)|H| \le |TH| \le L(T)|H|$, so $L(T)$ is the operator norm of
+    $T$, and $\ell(T) > 0$ iff $T$ is injective.
+  </div>
+
+  <h3>2.1 Singular values via the spectral theorem</h3>
+  <p>The matrix $T^*T$ is symmetric.</p>
+  <div class="box theorem">
+    <span class="box-label">Theorem 2.1 (Spectral theorem)</span>
+    A real symmetric transformation has real eigenvalues and an orthonormal basis of eigenvectors.
+  </div>
+  <p>Let $\lambda_1 \ge \lambda_2 \ge \cdots \ge \lambda_n$ be the eigenvalues of $T^*T$, with orthonormal eigenvectors
+    $v_1,\dots,v_n$. Then each $\lambda_i \ge 0$, because
+    $$ \lambda_i = \lambda_i \langle v_i,v_i\rangle = \langle \lambda_i v_i, v_i\rangle = \langle T^*T v_i, v_i\rangle = \langle Tv_i, Tv_i\rangle = |Tv_i|^2 \ge 0. $$
+    Hence $\lambda_1 \ge \cdots \ge \lambda_n \ge 0$; writing $\sigma_i = \sqrt{\lambda_i}$ gives $\sigma_1 \ge \cdots \ge \sigma_n \ge 0$,
+    the <strong>singular values</strong> of $T$ ($\sigma_n > 0$ exactly when $T$ is nonsingular).</p>
+  <div class="box theorem">
+    <span class="box-label">Proposition 2.2</span>
+    For any $H$, $|TH|^2 = \langle T^*T H, H\rangle$, so by the Rayleigh quotient characterisation
+    $$ L(T) = \sigma_1, \qquad \ell(T) = \sigma_n. $$
+    Moreover the extreme directions are orthogonal, being eigenvectors of the symmetric matrix $T^*T$.
+  </div>
+
+  <h3>2.2 Geometric picture</h3>
+  <p>$T$ carries the unit sphere of $\mathbb{R}^n$ onto an ellipsoid whose semi-axes have lengths $\sigma_1,\dots,\sigma_n$.
+    Thus $L(T)$ is the longest semi-axis and $\ell(T)$ the shortest: the ellipsoid is contained in the ball of radius
+    $L(T)$ and contains the ball of radius $\ell(T)$.</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 420 200" role="img" aria-hidden="true">
+      <circle cx="110" cy="100" r="60" fill="none" stroke="#C7C5D4" stroke-width="1.3"/>
+      <text x="80" y="30" font-family="Fraunces" font-style="italic" font-size="13" fill="#C7C5D4">unit circle</text>
+      <line x1="185" y1="100" x2="235" y2="100" stroke="#9C99AC" stroke-width="1.1"/>
+      <polygon points="235,100 226,95 226,105" fill="#9C99AC"/>
+      <text x="195" y="90" font-family="Fraunces" font-style="italic" font-size="13" fill="#9C99AC">T</text>
+      <ellipse cx="320" cy="100" rx="80" ry="38" fill="none" stroke="#8B7FFF" stroke-width="1.5"/>
+      <circle cx="320" cy="100" r="80" fill="none" stroke="#F3B860" stroke-width="1" stroke-dasharray="4,3" opacity="0.7"/>
+      <circle cx="320" cy="100" r="38" fill="none" stroke="#4FAE8E" stroke-width="1" stroke-dasharray="4,3" opacity="0.7"/>
+      <text x="390" y="64" font-family="IBM Plex Mono" font-size="11" fill="#F3B860">L(T)</text>
+      <text x="320" y="140" font-family="IBM Plex Mono" font-size="11" fill="#4FAE8E">ℓ(T)</text>
+    </svg>
+    <figcaption>The image ellipse, with inscribed circle of radius $\ell(T)$ and circumscribed circle of radius $L(T)$.</figcaption>
+  </figure>
+
+  <h2 id="dilatations">3. Dilatations</h2>
+  <p>Throughout this section $T : \mathbb{R}^n \to \mathbb{R}^n$ is linear and nonsingular, so $\sigma_1 \ge \cdots \ge \sigma_n > 0$
+    and $|\det T| = \sigma_1 \sigma_2 \cdots \sigma_n$.</p>
+  <div class="box definition">
+    <span class="box-label">Definition 3.1</span>
+    The linear dilatation, inner dilatation, and outer dilatation of $T$ are
+    $$ H(T) = \frac{L(T)}{\ell(T)}, \qquad H_I(T) = \frac{|\det T|}{\ell(T)^n}, \qquad H_O(T) = \frac{L(T)^n}{|\det T|}. $$
+    In terms of singular values,
+    $$ H(T) = \frac{\sigma_1}{\sigma_n}, \qquad H_I(T) = \prod_{i=1}^{n-1} \frac{\sigma_i}{\sigma_n}, \qquad H_O(T) = \prod_{i=2}^{n} \frac{\sigma_1}{\sigma_i}. $$
+    Geometrically, $H_I$ compares the volume of the image ellipsoid with that of its inscribed ball (radius $\ell(T)$),
+    while $H_O$ compares the circumscribed ball (radius $L(T)$) with the ellipsoid. Since every factor in the two
+    products lies in $[1, H(T)]$, all three quantities are $\ge 1$.
+  </div>
+
+  <h3>3.1 Dilatation and eccentricity</h3>
+  <p>Writing $b = L(T)$ and $a = \ell(T)$ for the major and minor semi-axes in the plane, $H(T) = b/a$, and the
+    eccentricity of the image ellipse is
+    $$ e = \sqrt{1 - \frac{a^2}{b^2}} = \sqrt{1 - H(T)^{-2}}. $$
+    So $H(T)=1$ means $e=0$ (a circle: $T$ is a similarity, i.e. conformal), and $H(T)\to\infty$ means $e\to 1$.</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 440 130" role="img" aria-hidden="true">
+      <g transform="translate(55,65)"><circle r="42" fill="none" stroke="#8B7FFF" stroke-width="1.4"/><text y="60" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">e = 0</text></g>
+      <g transform="translate(165,65)"><ellipse rx="42" ry="36" fill="none" stroke="#8B7FFF" stroke-width="1.4"/><text y="60" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">e = 0.4</text></g>
+      <g transform="translate(275,65)"><ellipse rx="44" ry="30" fill="none" stroke="#8B7FFF" stroke-width="1.4"/><text y="60" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">e = 0.7</text></g>
+      <g transform="translate(385,65)"><ellipse rx="46" ry="19" fill="none" stroke="#8B7FFF" stroke-width="1.4"/><text y="60" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">e = 0.9</text></g>
+    </svg>
+    <figcaption>As $H(T)$ grows, the image ellipse flattens and the eccentricity $e \to 1$.</figcaption>
+  </figure>
+
+  <h3>3.2 The product identity</h3>
+  <div class="box theorem">
+    <span class="box-label">Proposition 3.1</span>
+    $$ H_I(T)\cdot H_O(T) = H(T)^n, \qquad\text{equivalently}\qquad H_I(T) = \frac{H(T)^n}{H_O(T)}. $$
+  </div>
+  <div class="proof">
+    <span class="proof-label">Proof.</span> Multiply and cancel the determinant:
+    $$ H_O(T)\cdot H_I(T) = \frac{L(T)^n}{|\det T|}\cdot\frac{|\det T|}{\ell(T)^n} = \frac{L(T)^n}{\ell(T)^n} = H(T)^n. $$
+    <span class="qed-mark">∎</span>
+  </div>
+
+  <h3>3.3 Comparison inequalities</h3>
+  <div class="box theorem">
+    <span class="box-label">Lemma 3.2</span> $H_O(T) \ge H(T)$.
+  </div>
+  <div class="proof">
+    <span class="proof-label">Proof.</span> Write $H_O(T) = \dfrac{\sigma_1^n}{\sigma_1\sigma_2\cdots\sigma_n} = \dfrac{\sigma_1^{n-1}}{\sigma_2\cdots\sigma_n}$.
+    Since $\sigma_2\cdots\sigma_{n-1} \le \sigma_1^{n-2}$ (each factor $\le \sigma_1$),
+    $$ H_O(T) \ge \frac{\sigma_1^{n-1}}{\sigma_1^{n-2}\cdot\sigma_n} = \frac{\sigma_1}{\sigma_n} = H(T). \qquad \blacksquare $$
+  </div>
+  <div class="box theorem">
+    <span class="box-label">Corollary 3.3</span>
+    $1 \le H_O(T) \le H_I(T)^{n-1}$ and $1 \le H_I(T) \le H_O(T)^{n-1}$.
+  </div>
+  <div class="proof">
+    <span class="proof-label">Proof.</span> By Proposition 3.1 and Lemma 3.2,
+    $$ 1 \le H_I(T) = \frac{H(T)^n}{H_O(T)} \le \frac{H_O(T)^n}{H_O(T)} = H_O(T)^{n-1}, $$
+    and the other inequality follows by the symmetric argument. <span class="qed-mark">∎</span>
+  </div>
+  <div class="box theorem">
+    <span class="box-label">Theorem 3.4</span>
+    $$ 1 \;\le\; \min\{H_I(T), H_O(T)\} \;\le\; H(T)^{n/2} \;\le\; \max\{H_I(T), H_O(T)\} \;\le\; H(T)^{n-1}. $$
+  </div>
+  <div class="proof">
+    <span class="proof-label">Proof.</span> <em>(1) The middle two inequalities.</em> Suppose, for contradiction, that
+    both $H_I(T) > H(T)^{n/2}$ and $H_O(T) > H(T)^{n/2}$. Multiplying gives $H_I(T)\cdot H_O(T) > H(T)^n$, contradicting
+    Proposition 3.1. So at least one of $H_I(T), H_O(T)$ is $\le H(T)^{n/2}$, i.e. the minimum is. The same argument
+    with both inequalities reversed shows at least one is $\ge H(T)^{n/2}$, i.e. the maximum is.
+    <br><br>
+    <em>(2) The last inequality.</em> From the product formulas,
+    $$ H_O(T) = \prod_{i=2}^n \frac{\sigma_1}{\sigma_i} \le H(T)^{n-1}, \qquad H_I(T) = \prod_{i=1}^{n-1}\frac{\sigma_i}{\sigma_n} \le H(T)^{n-1}, $$
+    because each factor is at most $\sigma_1/\sigma_n = H(T)$. Hence $1 \le \max\{H_O(T),H_I(T)\} \le H(T)^{n-1}$.
+    <span class="qed-mark">∎</span>
+  </div>
+
+  <h3>The case $n=2$</h3>
+  <p>For $n=2$ the three dilatations coincide:
+    $$ H_I(T) = \frac{\sigma_1\sigma_2}{\sigma_2^2} = \frac{\sigma_1}{\sigma_2}, \qquad H_O(T) = \frac{\sigma_1^2}{\sigma_1\sigma_2} = \frac{\sigma_1}{\sigma_2}, $$
+    so $H_I(T) = H_O(T) = H(T)$, consistent with Theorem 3.4, whose outer bounds both read $H(T)^1$ when $n=2$.</p>
+
+  <h2 id="maxmin">4. Maximal and minimal stretching of a map</h2>
+  <div class="box definition">
+    <span class="box-label">Definition 4.1</span>
+    Let $f : A \to \mathbb{R}^m$. The maximal stretching $L_f(x)$ and minimal stretching $\ell_f(x)$ of $f$ at $x$ are
+    $$ L_f(x) = \limsup_{h \to 0} \frac{|f(x+h)-f(x)|}{|h|}, \qquad \ell_f(x) = \liminf_{h \to 0} \frac{|f(x+h)-f(x)|}{|h|}. $$
+  </div>
+  <div class="box theorem">
+    <span class="box-label">Theorem 4.1</span>
+    If $f$ is differentiable at $x$, then $L_f(x) = L(f'(x))$ and $\ell_f(x) = \ell(f'(x))$.
+  </div>
+  <div class="proof">
+    <span class="proof-label">Proof.</span> Differentiability gives $f(x+h)-f(x) = f'(x)h + |h|\varepsilon(h)$ with
+    $\varepsilon(h)\to 0$ as $h\to 0$. Hence
+    $$ |f(x+h)-f(x)| = |f'(x)h + |h|\varepsilon(h)| \le |h|L(f'(x)) + |h|\cdot\varepsilon(h), $$
+    so $\dfrac{|f(x+h)-f(x)|}{|h|} \le L(f'(x)) + \varepsilon(h) \xrightarrow{h\to 0} L(f'(x))$, giving $L_f(x) \le L(f'(x))$.
+    For the reverse inequality, select $h \in S^{n-1}$ for which the maximum is attained, i.e.
+    $L(f'(x)) = |f'(x)h|$. Approaching along that direction,
+    $$ L_f(x) \ge \lim_{t\to 0^+} \frac{|f(x+th)-f(x)|}{t} = |f'(x)h| = L(f'(x)). $$
+    The two inequalities give $L_f(x) = L(f'(x))$; the statement for $\ell_f$ follows by the same argument with the
+    inequalities reversed, choosing $h$ to minimise $|f'(x)h|$. <span class="qed-mark">∎</span>
+  </div>
+  <p><em>Remark.</em> This theorem is what makes concrete computations possible: an awkward $\limsup$ of difference
+    quotients for a nonlinear $f$ is replaced by maximising $|TH|$ over the unit sphere, with $T = f'(x)$ a fixed
+    matrix. In $\mathbb{R}^2$ one writes $H = (\cos\theta,\sin\theta)$ and the problem becomes an elementary
+    one-variable trigonometric extremum — the method used in both examples below.</p>
+
+  <h3 id="complexcase">4.1 The complex case</h3>
+  <div class="box theorem">
+    <span class="box-label">Theorem 4.2</span>
+    Let $f : A \to \mathbb{C}$ with $A \subseteq \mathbb{C}$, differentiable at $z$. Then
+    $$ L_f(z) = |\partial f(z)| + |\bar\partial f(z)|, \qquad \ell_f(z) = \big| |\partial f(z)| - |\bar\partial f(z)| \big|. $$
+  </div>
+  <div class="proof">
+    <span class="proof-label">Proof.</span> By Theorem 4.1, $L_f(z) = L(f'(z))$, and by Theorem 1.1 the derivative is
+    $T(h) = \partial f(z)\,h + \bar\partial f(z)\,\bar h$. Since $|\bar h| = |h|$, the triangle inequality (in both
+    directions) gives
+    $$ \big||\partial f(z)| - |\bar\partial f(z)|\big|\,|h| \;\le\; |T(h)| \;\le\; \big(|\partial f(z)| + |\bar\partial f(z)|\big)|h|. $$
+    Both bounds are attained. Taking $h = e^{i\theta}$ on the unit circle,
+    $$ T(e^{i\theta}) = \partial f(z)e^{i\theta} + \bar\partial f(z)e^{-i\theta} = e^{i\theta}\big(\partial f(z) + \bar\partial f(z) e^{-2i\theta}\big), $$
+    so $|T(e^{i\theta})| = |\partial f(z) + \bar\partial f(z) e^{-2i\theta}|$. As $\theta$ runs over $[0,2\pi)$ the
+    factor $e^{-2i\theta}$ runs over the whole unit circle, so the two complex numbers $\partial f(z)$ and
+    $\bar\partial f(z) e^{-2i\theta}$ become aligned for some $\theta$ and anti-aligned for another. Hence the modulus
+    attains both the sum and the absolute difference of the two moduli — $L(f'(z))$ and $\ell(f'(z))$ respectively.
+    <span class="qed-mark">∎</span>
+  </div>
+  <p><em>Remark.</em> Theorem 4.2 makes the conformality criterion transparent: $H(f'(z)) = 1$ forces
+    $|\bar\partial f(z)| = 0$, i.e. the Cauchy–Riemann equation. Example 1 below is the special case $\partial f = a$,
+    $\bar\partial f = b$.</p>
+
+  <h2 id="ex1">5. Example 1</h2>
+  <p>Let $a,b \in \mathbb{R}$ and $f(z) = az + b\bar z$. Identifying $\mathbb{C}$ with $\mathbb{R}^2$ via $z=x+iy$, so
+    $z \leftrightarrow (x,y)$ and $\bar z \leftrightarrow (x,-y)$:
+    $$ f(x,y) = a(x,y) + b(x,-y) = \big((a+b)x,\, (a-b)y\big), \qquad f\binom{x}{y} = \begin{pmatrix} a+b & 0 \\ 0 & a-b\end{pmatrix}\binom{x}{y} = AX. $$
+
+  <h3>Stretching of the derivative</h3>
+  <p>Since $f$ is linear, it is its own derivative: $f'(X) = A = \begin{pmatrix} a+b & 0 \\ 0 & a-b \end{pmatrix}$. $A$
+    is diagonal, so by Proposition 2.2 its singular values are $|a+b|$ and $|a-b|$, hence
+    $$ L(f'(X)) = \max\{|a+b|,|a-b|\}, \qquad \ell(f'(X)) = \min\{|a+b|,|a-b|\}. $$
+
+  <h3>Stretching of the map</h3>
+  <p>Let $H = (h,k)$. By linearity of $f$,
+    $$ \chi := \frac{|f(X+H)-f(X)|}{|H|} = \frac{|AH|}{|H|} = \frac{\sqrt{(a+b)^2h^2 + (a-b)^2k^2}}{\sqrt{h^2+k^2}}, $$
+    so $\chi^2 = \dfrac{(a+b)^2h^2+(a-b)^2k^2}{h^2+k^2}$. Let $h=r\cos\theta$, $k=r\sin\theta$. Then
+    $$ \chi^2 = (a+b)^2(1-\sin^2\theta) + (a-b)^2\sin^2\theta = (a+b)^2 + \big[(a-b)^2-(a+b)^2\big]\sin^2\theta, $$
+    and since $(a-b)^2-(a+b)^2 = -4ab$,
+    $$ \chi^2 = (a+b)^2 - 4ab\sin^2\theta. $$
+    Note $\chi$ does not depend on $r$, so the $\limsup$ as $r\to 0$ is simply the supremum over $\theta$.</p>
+
+  <p>When $\sin^2\theta = 1$: $\chi^2 = (a+b)^2-4ab = (a-b)^2$, so $\chi = |a-b|$.<br>
+  When $\sin^2\theta = 0$: $\chi^2 = (a+b)^2$, so $\chi = |a+b|$.</p>
+
+  <p>So the two extreme values are $|a+b|$ and $|a-b|$, giving
+    $$ L_f(X) = \max\{|a+b|,|a-b|\} = |a|+|b|, \qquad \ell_f(X) = \min\{|a+b|,|a-b|\} = \big||a|-|b|\big|, $$
+    which coincide with $L(f'(X))$ and $\ell(f'(X))$ found above — Theorem 4.1 is satisfied. $\blacksquare$</p>
+
+  <h3>Consistency with the complex formula</h3>
+  <p>For $f(z) = az+b\bar z$ we have $\partial f = a$ and $\bar\partial f = b$, so Theorem 4.2 gives directly
+    $L_f(z) = |a|+|b|$, $\ell_f(z) = \big||a|-|b|\big|$, in agreement with the direct computation. The dilatation is
+    $$ H(f'(z)) = \frac{|a|+|b|}{\big||a|-|b|\big|}, $$
+    which equals $1$ exactly when $b=0$, i.e. $f(z)=az$ is holomorphic — as $\bar\partial f = b = 0$ predicts.</p>
+
+  <div class="box remark">
+    <span class="box-label">Remark on the sign of $ab$</span>
+    Which of $|a+b|,|a-b|$ is the maximum depends on the sign of $ab$, since $-4ab$ is the coefficient of $\sin^2\theta$:
+    $|a+b|^2 - |a-b|^2 = 4ab$.
+    <ul>
+      <li>If $ab \ge 0$: $\chi^2$ decreases in $\sin^2\theta$, so $L_f(X) = |a+b|$, $\ell_f(X) = |a-b|$.</li>
+      <li>If $ab < 0$: $\chi^2$ increases in $\sin^2\theta$ and the two swap: $L_f(X) = |a-b|$, $\ell_f(X)=|a+b|$.</li>
+    </ul>
+    The forms $|a|+|b|$ and $\big||a|-|b|\big|$ boxed above are valid in both cases, and remain valid for complex
+    $a,b$ by Theorem 4.2.
+  </div>
+
+  <h2 id="ex2">6. Example 2</h2>
+  <p>Let $f : \mathbb{R}^2 \to \mathbb{R}^3$ be given by $f(x,y) = (x+y,\, x-y,\, xy)$. Find the maximum and minimum
+    stretching, and verify $L_f(x) = L(f'(x))$.</p>
+
+  <h3>Solution</h3>
+  <p>$f$ is differentiable since every component is. Its derivative is
+    $$ f'(x,y) = \begin{pmatrix} \partial f_1/\partial x & \partial f_1/\partial y \\ \partial f_2/\partial x & \partial f_2/\partial y \\ \partial f_3/\partial x & \partial f_3/\partial y \end{pmatrix}, \qquad
+       T = f'(x,y) = \begin{pmatrix} 1 & 1 \\ 1 & -1 \\ y & x \end{pmatrix}. $$
+    By definition $L(T) = \max_{|H|=1}|TH|$. Put $H=(h,k)$ with $h=\cos\theta,k=\sin\theta$. Then
+    $$ TH = \begin{pmatrix} h+k \\ h-k \\ hy+kx \end{pmatrix}, \qquad |TH|^2 = (h+k)^2+(h-k)^2+(hy+kx)^2 = 2(h^2+k^2) + (hy+kx)^2. $$
+    We maximize/minimize this under $h^2+k^2=1$, so $|TH|^2 = 2 + h^2y^2 + k^2x^2 + 2xyhk$.</p>
+
+  <h3>Simplification</h3>
+  <p>Substituting $h=\cos\theta,k=\sin\theta$:
+    $$ |TH|^2 = 2 + y^2\cos^2\theta + x^2\sin^2\theta + 2xy\sin\theta\cos\theta
+             = 2 + \frac{x^2+y^2}{2} + \frac{y^2-x^2}{2}\cos2\theta + xy\sin2\theta. $$
+    Let $x=r\cos\alpha$, $y=r\sin\alpha$, so $x^2+y^2=r^2$, $y^2-x^2 = -r^2\cos2\alpha$, $2xy=r^2\sin2\alpha$, giving
+    $$ |TH|^2 = 2 + \frac{r^2}{2} - \frac{r^2}{2}\cos2(\alpha+\theta), $$
+    with $\cos 2(\alpha+\theta)$ ranging over $[-1,1]$.</p>
+
+  <p>When $\cos2(\alpha+\theta)=1$: $|TH|^2 = 2$, so $\ell(f'(x)) = \sqrt2$.<br>
+  When $\cos2(\alpha+\theta)=-1$: $|TH|^2 = 2+r^2 = 2+x^2+y^2$, so $L(f'(x)) = \sqrt{2+x^2+y^2}$.</p>
+
+  <h3>Verification that $L_f(x) = L(f'(x))$</h3>
+  <p>By definition $L_f(x) = \limsup_{|H|\to 0} \dfrac{|f(x+h,y+k)-f(x,y)|}{|(h,k)|}$. Writing $K$ for this ratio,
+    $$ K^2 = \frac{(h+k)^2+(h-k)^2+(xk+hy+kh)^2}{h^2+k^2} = 2 + \frac{(xk+hy+kh)^2}{h^2+k^2}. $$
+    Writing the increment in polar form $h=t\cos\theta$, $k=t\sin\theta$, $t=|(h,k)|\to 0$,
+    $$ K^2 = 2 + \big(x\sin\theta + y\cos\theta + t\sin\theta\cos\theta\big)^2 = 2 + (x\sin\theta+y\cos\theta)^2 + \underbrace{t^2\sin^2\theta\cos^2\theta + 2x t\sin^2\theta\cos\theta + 2yt\sin\theta\cos^2\theta}_{\text{all carry a factor } t}. $$
+    The last group is bounded by $t^2 + 2|x|t + 2|y|t \to 0$ as $t\to 0$, uniformly in $\theta$, so the supremum over
+    $\theta$ and the limit $t\to 0$ may be interchanged:
+    $$ K^2 \to 2 + (x\sin\theta+y\cos\theta)^2. $$
+    With $x=r\cos\alpha,\,y=r\sin\alpha$, $x\sin\theta+y\cos\theta = r\sin(\theta+\alpha)$, so
+    $$ K^2 \to 2 + r^2\sin^2(\theta+\alpha), $$
+    exactly the expression found above, since $2+\tfrac{r^2}{2}-\tfrac{r^2}{2}\cos2(\alpha+\theta) = 2+r^2\sin^2(\alpha+\theta)$.
+    Taking the supremum and infimum over $\theta$ gives
+    $$ L_f(x) = \sqrt{2+x^2+y^2} = L(f'(x)), \qquad \ell_f(x) = \sqrt2 = \ell(f'(x)), $$
+    in accordance with Theorem 4.1. $\blacksquare$</p>
+
+  <div class="nav-footer">
+    <a href="isometries.html">← Isometries</a>
+    <a href="quasiconformal-grotzsch.html">Quasiconformal Maps & Grötzsch →</a>
+  </div>
+</div>
+</body>
+</html>

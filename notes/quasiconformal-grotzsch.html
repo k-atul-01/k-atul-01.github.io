@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){try{if(localStorage.getItem('theme')==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();</script>
 <title>Quasiconformal Mappings and Grötzsch's Problem — Notes — Atul Kumar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,8 +19,27 @@
   :root{
     --paper:#0A0A10; --ink:#F2F1F6; --ink-soft:#C7C5D4; --muted:#9C99AC;
     --indigo:#8B7FFF; --amber:#F3B860; --line:rgba(255,255,255,0.14);
-    --card:rgba(16,15,22,0.92); --maxw:760px;
+    --card:rgba(16,15,22,0.92); --maxw:760px; --heading:#FFFFFF;
   }
+  :root[data-theme="light"]{
+    --paper:#FAFAF8; --paper-dim:rgba(0,0,0,0.04); --ink:#15141F; --ink-soft:#4B4959;
+    --muted:#6E6B7C; --indigo:#4338CA; --amber:#9A6200; --line:rgba(0,0,0,0.12);
+    --card:rgba(255,255,255,0.92); --heading:#0E0D14;
+  }
+  :root[data-theme="light"] figure.fig svg{background:#14131C; border-radius:10px; padding:10px;}
+  :root[data-theme="light"] .box{box-shadow:0 4px 18px rgba(20,20,40,0.06);}
+  .theme-toggle{
+    position:fixed; top:20px; right:20px; z-index:50;
+    width:44px; height:44px; border-radius:50%;
+    background:var(--card); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color:var(--ink); transition:border-color 0.18s, transform 0.18s;
+  }
+  .theme-toggle:hover{border-color:var(--indigo); transform:translateY(-1px);}
+  .theme-toggle svg{width:18px; height:18px; display:block;}
+  .theme-toggle .icon-sun{display:none;}
+  :root[data-theme="light"] .theme-toggle .icon-moon{display:none;}
+  :root[data-theme="light"] .theme-toggle .icon-sun{display:block;}
   *{box-sizing:border-box;}
   body{
     margin:0; background:var(--paper); color:var(--ink);
@@ -28,16 +48,16 @@
   .wrap{max-width:var(--maxw); margin:0 auto; padding:56px 28px 110px;}
   a.back{font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--amber); text-decoration:none;}
   a.back:hover{text-decoration:underline;}
-  h1{font-family:'Fraunces', serif; font-weight:600; font-size:2rem; margin:20px 0 6px; color:#fff; line-height:1.15;}
+  h1{font-family:'Fraunces', serif; font-weight:600; font-size:2rem; margin:20px 0 6px; color:var(--heading); line-height:1.15;}
   .meta{color:var(--muted); font-size:0.9rem; margin-bottom:10px; font-family:'IBM Plex Mono', monospace;}
   .abstract{color:var(--ink-soft); font-style:italic; border-left:2px solid var(--line); padding-left:16px; margin:28px 0 40px;}
-  h2{font-family:'Fraunces', serif; font-weight:600; font-size:1.45rem; color:#fff; margin-top:52px; margin-bottom:16px;
+  h2{font-family:'Fraunces', serif; font-weight:600; font-size:1.45rem; color:var(--heading); margin-top:52px; margin-bottom:16px;
      padding-bottom:10px; border-bottom:1px solid var(--line);}
-  h3{font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem; color:#fff; margin-top:34px; margin-bottom:10px;}
+  h3{font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem; color:var(--heading); margin-top:34px; margin-bottom:10px;}
   p{color:var(--ink-soft); margin:14px 0;}
   ol, ul{color:var(--ink-soft);}
   li{margin-bottom:6px;}
-  strong{color:#fff;}
+  strong{color:var(--heading);}
 
   .box{
     margin:22px 0; padding:18px 20px; border-radius:10px;
@@ -69,7 +89,7 @@
 
   table.results{width:100%; border-collapse:collapse; margin:20px 0; font-size:0.92rem;}
   table.results th, table.results td{border:1px solid var(--line); padding:8px 12px; text-align:left; color:var(--ink-soft);}
-  table.results th{color:#fff; font-family:'IBM Plex Mono', monospace; font-weight:500; font-size:0.82rem;}
+  table.results th{color:var(--heading); font-family:'IBM Plex Mono', monospace; font-weight:500; font-size:0.82rem;}
 
   pre.code-block{
     background:#0E0D14; border:1px solid var(--line); border-radius:10px;
@@ -100,6 +120,10 @@
 </style>
 </head>
 <body>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
 <div class="wrap">
   <a class="back" href="../notes.html">← Notes index</a>
   <h1>Quasiconformal Mappings and<br>Grötzsch's Problem</h1>
@@ -172,7 +196,7 @@
     $f$ takes $a$-sides into $a$-sides and $b$-sides into $b$-sides.</p>
 
   <figure class="fig">
-    <svg viewBox="0 0 420 160" role="img" aria-hidden="true">
+    <svg viewBox="0 0 420 160" role="img" aria-hidden="true" style="width:100%;max-width:420px">
       <rect x="40" y="40" width="70" height="90" fill="none" stroke="#C7C5D4" stroke-width="1.3"/>
       <text x="75" y="30" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="13" fill="#C7C5D4">R</text>
       <text x="20" y="90" font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">b</text>
@@ -369,5 +393,12 @@
     <a href="../notes.html">Notes index →</a>
   </div>
 </div>
+<script>
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if (isLight) { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme','dark'); }
+    else { document.documentElement.setAttribute('data-theme','light'); localStorage.setItem('theme','light'); }
+  });
+</script>
 </body>
 </html>

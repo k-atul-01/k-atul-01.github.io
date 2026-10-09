@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){try{if(localStorage.getItem('theme')==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();</script>
 <title>Atul Kumar — Mathematics</title>
 <meta name="description" content="Atul Kumar — M.Sc. Mathematics, IIT Madras. CV, research interests, and academic record.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,9 +21,48 @@
     --amber:#F3B860;
     --line:rgba(255,255,255,0.14);
     --card:rgba(13,12,19,0.70);
+    --heading:#FFFFFF;
     --radius:14px;
     --maxw:840px;
   }
+
+  /* ---------- LIGHT THEME ---------- */
+  :root[data-theme="light"]{
+    --paper:#FAFAF8;
+    --paper-dim:rgba(0,0,0,0.04);
+    --ink:#15141F;
+    --ink-soft:#4B4959;
+    --muted:#6E6B7C;
+    --indigo:#4338CA;
+    --indigo-deep:#2E2694;
+    --amber:#9A6200;
+    --line:rgba(0,0,0,0.12);
+    --card:rgba(255,255,255,0.88);
+    --heading:#0E0D14;
+  }
+  :root[data-theme="light"] body{background-image:none;}
+  :root[data-theme="light"] .hero h1,
+  :root[data-theme="light"] .hero .subtitle{text-shadow:none;}
+  :root[data-theme="light"] .card{box-shadow:0 6px 24px rgba(20,20,40,0.08);}
+  :root[data-theme="light"] .notes-link{background:rgba(154,98,0,0.08); border-color:rgba(154,98,0,0.35);}
+  :root[data-theme="light"] .notes-link:hover{background:rgba(154,98,0,0.15);}
+  :root[data-theme="light"] .tag.amber{border-color:rgba(154,98,0,0.4); background:rgba(154,98,0,0.08);}
+
+  /* ---------- THEME TOGGLE BUTTON ---------- */
+  .theme-toggle{
+    position:fixed; top:20px; right:20px; z-index:50;
+    width:44px; height:44px; border-radius:50%;
+    background:var(--card); border:1px solid var(--line);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color:var(--ink);
+    transition:border-color 0.18s, transform 0.18s;
+  }
+  .theme-toggle:hover{border-color:var(--indigo); transform:translateY(-1px);}
+  .theme-toggle svg{width:18px; height:18px; display:block;}
+  .theme-toggle .icon-sun{display:none;}
+  :root[data-theme="light"] .theme-toggle .icon-moon{display:none;}
+  :root[data-theme="light"] .theme-toggle .icon-sun{display:block;}
 
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -88,7 +128,7 @@
   .hero h1{
     font-size:clamp(2.4rem, 6vw, 3.6rem);
     line-height:1.05;
-    color:#FFFFFF;
+    color:var(--heading);
     text-shadow:0 2px 24px rgba(0,0,0,0.5);
     opacity:0;
     animation: rise 0.7s ease forwards;
@@ -160,7 +200,7 @@
   }
   .section-head h2{
     font-size:1.55rem;
-    color:#FFFFFF;
+    color:var(--heading);
   }
   .section-rule{
     flex:1;
@@ -197,7 +237,7 @@
     font-weight:600;
     font-size:1.15rem;
     margin-bottom:4px;
-    color:#FFFFFF;
+    color:var(--heading);
   }
   .theorem-meta{
     font-size:0.88rem;
@@ -263,7 +303,7 @@
     color:var(--indigo);
     font-weight:500;
   }
-  .edu-item h3{font-size:1.05rem; font-weight:600; margin-bottom:4px; color:#FFFFFF;}
+  .edu-item h3{font-size:1.05rem; font-weight:600; margin-bottom:4px; color:var(--heading);}
   .edu-item p{margin:0; color:var(--muted); font-size:0.92rem;}
 
   /* Coursework two-col */
@@ -308,7 +348,7 @@
     min-width:26px;
   }
   .corollary-list p{margin:0; color:var(--ink-soft); font-size:0.95rem;}
-  .corollary-list strong{color:#FFFFFF; font-weight:600;}
+  .corollary-list strong{color:var(--heading); font-weight:600;}
 
   /* Remarks list (workshops) */
   .remark-list{margin:0; padding-left:0; list-style:none;}
@@ -330,7 +370,7 @@
 
   /* references */
   .ref-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-  .ref-card h3{font-size:1rem; margin-bottom:6px; color:#FFFFFF;}
+  .ref-card h3{font-size:1rem; margin-bottom:6px; color:var(--heading);}
   .ref-card p{margin:0; color:var(--muted); font-size:0.88rem; line-height:1.55;}
   .ref-card a{color:var(--indigo); text-decoration:none;}
   .ref-card a:hover{text-decoration:underline;}
@@ -378,6 +418,11 @@
 </style>
 </head>
 <body>
+
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
 
 <header class="hero">
   <div class="wrap hero-inner">
@@ -650,6 +695,18 @@
   } else {
     els.forEach(el => el.classList.add('in'));
   }
+
+  // Dark / light theme toggle (choice is remembered in this browser)
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    if (isLight) {
+      document.documentElement.removeAttribute('data-theme');
+      try { localStorage.setItem('theme','dark'); } catch(e){}
+    } else {
+      document.documentElement.setAttribute('data-theme','light');
+      try { localStorage.setItem('theme','light'); } catch(e){}
+    }
+  });
 </script>
 
 </body>

@@ -415,9 +415,55 @@
     *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
     html{scroll-behavior:auto;}
   }
+
+  /* ---------- LIGHT-MODE MATHEMATICAL GRID ONLY ----------
+     Dark-mode background rules above are intentionally left untouched. */
+  :root[data-theme="light"] body{
+    background-color:#F4F4F1;
+    background-image:none;
+  }
+  #math-grid{
+    display:none;
+  }
+  :root[data-theme="light"] #math-grid{
+    display:block;
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    opacity:0.62;
+    pointer-events:none;
+  }
+  :root[data-theme="light"] body > header,
+  :root[data-theme="light"] body > main,
+  :root[data-theme="light"] body > footer{
+    position:relative;
+    z-index:1;
+  }
+  :root[data-theme="light"] .card{
+    background:rgba(250,250,248,0.97);
+    border-color:rgba(20,20,30,0.16);
+    box-shadow:0 8px 28px rgba(20,20,30,0.10);
+  }
+  :root[data-theme="light"] .contact-pill{
+    background:rgba(250,250,248,0.97);
+    border-color:rgba(20,20,30,0.18);
+  }
+  :root[data-theme="light"] .hero .subtitle,
+  :root[data-theme="light"] .hero .eyebrow,
+  :root[data-theme="light"] main p,
+  :root[data-theme="light"] footer p{
+    text-shadow:0 1px 0 rgba(250,250,248,0.75);
+  }
+  @media (prefers-reduced-motion: reduce){
+    :root[data-theme="light"] #math-grid{opacity:0.62;}
+  }
+
 </style>
 </head>
 <body>
+<canvas id="math-grid" aria-hidden="true"></canvas>
 
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
   <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -629,6 +675,7 @@
         <li>Popular Science Lecture Series — Institute of Mathematical Sciences (IMSc) &amp; Tamil Nadu Science Forum, Feb 2026</li>
         <li>MTTS Summer Camp 2026 (Level II), KIIT Bhubaneswar, Odisha</li>
         <li>National-Level Hands-on FDP: Computational Topology Using Python, July 2026</li>
+        <li>Mentor, OFCM 2026 (MTTS Trust)</li>
       </ul>
     </div>
   </section>
@@ -707,6 +754,181 @@
       try { localStorage.setItem('theme','light'); } catch(e){}
     }
   });
+
+  // Light-mode mathematical grid. Dark mode does not run or display this layer.
+  (function(){
+    const canvas = document.getElementById('math-grid');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const root = document.documentElement;
+    const sectionOrder = [
+      'identity', 'research', 'interests', 'education', 'coursework',
+      'skills', 'achievements', 'workshops', 'additional', 'references'
+    ];
+    const sectionMap = {
+      research: 'square',
+      interests: 'square',
+      education: 'exponential',
+      coursework: 'exponential',
+      skills: 'logarithm',
+      achievements: 'logarithm',
+      workshops: 'radial',
+      additional: 'radial',
+      references: 'identity'
+    };
+    let width = 0, height = 0, dpr = 1, currentMap = 'identity', targetMap = 'identity';
+    let transitionStart = performance.now();
+    let lastScrollUpdate = 0;
+    const transitionDuration = 850;
+
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
+
+    function mapPoint(z, type){
+      const x = z.x, y = z.y;
+      if(type === 'square') return {x:x*x-y*y, y:2*x*y};
+      if(type === 'exponential'){
+        const ex = Math.exp(Math.max(-2.2, Math.min(2.2, x)));
+        return {x:ex*Math.cos(y), y:ex*Math.sin(y)};
+      }
+      if(type === 'logarithm'){
+        const r = Math.max(0.12, Math.hypot(x,y));
+        return {x:Math.log(r), y:Math.atan2(y,x)};
+      }
+      if(type === 'radial'){
+        const r = Math.hypot(x,y);
+        if(r < 1e-6) return {x:0,y:0};
+        const stretched = Math.pow(r, 1.22);
+        const twist = 0.28 * Math.log(Math.max(r,0.12));
+        const a = Math.atan2(y,x) + twist;
+        return {x:stretched*Math.cos(a), y:stretched*Math.sin(a)};
+      }
+      return {x,y};
+    }
+
+    function gridSegments(type){
+      const segments = [];
+      const extent = 4.2;
+      const step = 0.25;
+      // Horizontal and vertical source-grid lines, sampled to preserve curves.
+      for(let c=-extent; c<=extent+1e-6; c+=step){
+        for(const fixedAxis of ['x','y']){
+          let pts = [];
+          for(let t=-extent; t<=extent+1e-6; t+=0.045){
+            const z = fixedAxis==='x' ? {x:c,y:t} : {x:t,y:c};
+            const p = mapPoint(z,type);
+            if(Number.isFinite(p.x) && Number.isFinite(p.y) && Math.abs(p.x)<40 && Math.abs(p.y)<40){
+              pts.push(p);
+            } else {
+              if(pts.length>1) segments.push(pts);
+              pts=[];
+            }
+          }
+          if(pts.length>1) segments.push(pts);
+        }
+      }
+      return segments;
+    }
+
+    function drawMap(type, alpha){
+      const segments = gridSegments(type);
+      const scale = Math.min(width, height) / 5.8;
+      const cx = width * 0.5, cy = height * 0.5;
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.lineWidth = 0.2;
+      ctx.strokeStyle = '#080808';
+      for(const pts of segments){
+        ctx.beginPath();
+        let started = false;
+        for(const p of pts){
+          const sx = cx + p.x*scale;
+          const sy = cy - p.y*scale;
+          if(sx < -100 || sx > width+100 || sy < -100 || sy > height+100){
+            started = false;
+            continue;
+          }
+          if(!started){ctx.moveTo(sx,sy); started=true;}
+          else ctx.lineTo(sx,sy);
+        }
+        ctx.stroke();
+      }
+      // Draw the real axis slightly darker for orientation.
+      ctx.globalAlpha = alpha * 0.8;
+      ctx.lineWidth = 1.1;
+      ctx.beginPath(); ctx.moveTo(0,cy); ctx.lineTo(width,cy); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,height); ctx.stroke();
+      ctx.restore();
+    }
+
+    function draw(){
+      if(root.getAttribute('data-theme') !== 'light'){
+        ctx.clearRect(0,0,width,height);
+        return;
+      }
+      ctx.clearRect(0,0,width,height);
+      const elapsed = Math.min(1, (performance.now()-transitionStart)/transitionDuration);
+      const eased = elapsed*elapsed*(3-2*elapsed);
+      if(currentMap !== targetMap && elapsed < 1){
+        drawMap(currentMap, 0.98*(1-eased));
+        drawMap(targetMap, 0.98*eased);
+        requestAnimationFrame(draw);
+      } else {
+        currentMap = targetMap;
+        drawMap(currentMap, 0.96);
+      }
+    }
+
+    function updateTarget(){
+      if(root.getAttribute('data-theme') !== 'light') return;
+      const marker = window.innerHeight * 0.42;
+      let active = 'identity';
+      for(const id of sectionOrder){
+        if(id === 'identity') continue;
+        const el = document.getElementById(id);
+        if(el && el.getBoundingClientRect().top <= marker) active = sectionMap[id] || active;
+      }
+      if(window.scrollY < 100) active = 'identity';
+      if(active !== targetMap){
+        currentMap = targetMap;
+        targetMap = active;
+        transitionStart = performance.now();
+        draw();
+      }
+    }
+
+    window.addEventListener('resize', resize, {passive:true});
+    window.addEventListener('scroll', function(){
+      const now = performance.now();
+      if(now-lastScrollUpdate > 90){
+        lastScrollUpdate = now;
+        updateTarget();
+      }
+    }, {passive:true});
+
+    // Redraw when the existing theme toggle changes the document theme.
+    const observer = new MutationObserver(function(){
+      if(root.getAttribute('data-theme') === 'light'){
+        resize();
+        updateTarget();
+      } else {
+        ctx.clearRect(0,0,width,height);
+      }
+    });
+    observer.observe(root, {attributes:true, attributeFilter:['data-theme']});
+    resize();
+    updateTarget();
+  })();
+
 </script>
 
 </body>

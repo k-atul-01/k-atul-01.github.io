@@ -9,6 +9,73 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+
+  /* =========================================
+   BACKGROUND — DARK AND LIGHT MODES
+   ========================================= */
+
+/* Dark mode: background image with dark overlay */
+body {
+    background-color: var(--paper);
+    background-image:
+        linear-gradient(
+            180deg,
+            rgba(4, 4, 8, 0.80) 0%,
+            rgba(6, 6, 11, 0.55) 30%,
+            rgba(5, 5, 9, 0.90) 100%
+        ),
+        url("assets/complex-graph.png");
+
+    background-size: 180%;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Mobile compatibility */
+@media (max-width: 800px) {
+    body {
+        background-attachment: scroll;
+    }
+}
+
+/* Light mode: use the canvas instead of the dark image */
+:root[data-theme="light"] body {
+    background-color: #F4F4F1;
+    background-image: none;
+}
+
+/* Hide the mathematical grid by default */
+#math-grid {
+    display: none;
+}
+
+/* Show the animated grid only in light mode */
+:root[data-theme="light"] #math-grid {
+    display: block;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.62;
+    pointer-events: none;
+}
+
+/* Keep the page content above the background */
+:root[data-theme="light"] body > header,
+:root[data-theme="light"] body > main,
+:root[data-theme="light"] body > footer {
+    position: relative;
+    z-index: 1;
+}
+
+/* Light-mode content cards */
+:root[data-theme="light"] .card {
+    background: rgba(250, 250, 248, 0.97);
+    border-color: rgba(20, 20, 30, 0.16);
+    box-shadow: 0 8px 28px rgba(20, 20, 30, 0.10);
+}
   :root{
     --paper:#0A0A10; --ink:#F2F1F6; --ink-soft:#C7C5D4; --muted:#9C99AC;
     --indigo:#8B7FFF; --amber:#F3B860; --line:rgba(255,255,255,0.14);
@@ -83,6 +150,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
 </head>
 <body>
+  <canvas id="math-grid" aria-hidden="true"></canvas>
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
   <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
   <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>

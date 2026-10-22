@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){try{if(localStorage.getItem('theme')==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();</script>
+<title>Conformal Invariance of the Modulus of a Curve Family — Notes — Atul Kumar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+<style>
+:root{
+  --paper:#0A0A10; --ink:#F2F1F6; --ink-soft:#C7C5D4; --muted:#9C99AC;
+  --indigo:#8B7FFF; --amber:#F3B860; --line:rgba(255,255,255,0.14);
+  --card:rgba(16,15,22,0.92); --maxw:760px; --heading:#FFFFFF;
+}
+:root[data-theme="light"]{
+  --paper:#FAFAF8; --paper-dim:rgba(0,0,0,0.04); --ink:#15141F; --ink-soft:#4B4959;
+  --muted:#6E6B7C; --indigo:#4338CA; --amber:#9A6200; --line:rgba(0,0,0,0.12);
+  --card:rgba(255,255,255,0.92); --heading:#0E0D14;
+}
+:root[data-theme="light"] figure.fig svg{background:#14131C; border-radius:10px; padding:10px;}
+:root[data-theme="light"] .box{box-shadow:0 4px 18px rgba(20,20,40,0.06);}
+.theme-toggle{position:fixed;top:20px;right:20px;z-index:50;width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);transition:border-color .18s,transform .18s;}
+.theme-toggle:hover{border-color:var(--indigo);transform:translateY(-1px);}
+.theme-toggle svg{width:18px;height:18px;display:block;}
+.theme-toggle .icon-sun{display:none;}
+:root[data-theme="light"] .theme-toggle .icon-moon{display:none;}
+:root[data-theme="light"] .theme-toggle .icon-sun{display:block;}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.7;font-size:16px;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:56px 28px 110px;}
+a.back{font-family:'IBM Plex Mono',monospace;font-size:.85rem;color:var(--amber);text-decoration:none;}
+a.back:hover{text-decoration:underline;}
+h1{font-family:'Fraunces',serif;font-weight:600;font-size:2rem;margin:20px 0 6px;color:var(--heading);line-height:1.15;}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:10px;font-family:'IBM Plex Mono',monospace;}
+.abstract{color:var(--ink-soft);font-style:italic;border-left:2px solid var(--line);padding-left:16px;margin:28px 0 40px;}
+h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.45rem;color:var(--heading);margin-top:52px;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--line);}
+h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;color:var(--heading);margin-top:34px;margin-bottom:10px;}
+p{color:var(--ink-soft);margin:14px 0;}
+ol,ul{color:var(--ink-soft);}li{margin-bottom:6px;}strong{color:var(--heading);}
+.box{margin:22px 0;padding:18px 20px;border-radius:10px;background:var(--card);border:1px solid var(--line);}
+.box-label{font-family:'Fraunces',serif;font-style:italic;font-weight:600;color:var(--indigo);margin-bottom:6px;display:block;}
+.box.theorem{border-left:3px solid var(--indigo);}.box.definition{border-left:3px solid var(--amber);}.box.example{border-left:3px solid #4FAE8E;}.box.remark{border-left:3px solid var(--muted);}
+.proof{margin:16px 0 22px;color:var(--ink-soft);}.proof-label{font-style:italic;color:var(--ink);}.qed-mark{float:right;color:var(--indigo);font-family:'IBM Plex Mono',monospace;}
+.eq-box{display:block;text-align:center;margin:18px 0;padding:14px;border:1px solid rgba(243,184,96,.4);border-radius:8px;background:rgba(243,184,96,.07);}
+figure.fig{margin:28px 0;text-align:center;}figure.fig img{max-width:100%;border-radius:10px;background:white;padding:6px;}figure.fig svg{max-width:100%;height:auto;}figcaption{color:var(--muted);font-size:.85rem;margin-top:10px;font-style:italic;}
+table.results{width:100%;border-collapse:collapse;margin:20px 0;font-size:.92rem;}table.results th,table.results td{border:1px solid var(--line);padding:8px 12px;text-align:left;color:var(--ink-soft);}table.results th{color:var(--heading);font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:.82rem;}
+.contents-list{list-style:none;padding:0;margin:0;font-family:'IBM Plex Mono',monospace;font-size:.88rem;}.contents-list li{margin-bottom:6px;}.contents-list a{color:var(--ink-soft);text-decoration:none;}.contents-list a:hover{color:var(--amber);}
+.nav-footer{margin-top:70px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:.85rem;}.nav-footer a{color:var(--amber);text-decoration:none;}.nav-footer a:hover{text-decoration:underline;}
+@media(max-width:640px){.wrap{padding:40px 20px 80px;}h1{font-size:1.6rem;}table.results{font-size:.82rem;}table.results th,table.results td{padding:7px;}}
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
+<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+<div class="wrap">
+<a class="back" href="../notes.html">← Notes index</a>
+<h1>Conformal Invariance of the<br>Modulus of a Curve Family</h1>
+<div class="meta">Seminar Notes · Metrics, Modulus & Quasiconformal Maps</div>
+<p class="abstract">These notes define the modulus of a curve family, establish its quasi-invariance under diffeomorphisms and conformal invariance, and compute the modulus for curves crossing a rectangle and an annulus.</p>
+<ul class="contents-list">
+<li><a href="#metrics">1. Metrics, lengths and the modulus</a></li>
+<li><a href="#distortion">2. How the modulus changes under a diffeomorphism</a></li>
+<li><a href="#extremal">3. Extremal length and quasiconformal maps</a></li>
+<li><a href="#model">4. Two model computations</a></li>
+<li><a href="#rectangle">4.1 Curves crossing a rectangle</a></li>
+<li><a href="#annulus">4.2 Curves crossing an annulus</a></li>
+<li><a href="#logcoordinates">4.3 Note: logarithmic coordinates</a></li>
+</ul>
+
+<h2 id="metrics">1. Metrics, lengths and the modulus</h2>
+<p>Throughout, $D$ and $D'$ are domains in $\mathbb{R}^n$ with $n\geq 2$, $f:D\to D'$ is a diffeomorphism, and $\Gamma$ is a family of smooth paths in $D$. The image family is</p>
+<div class="eq-box">$$f(\Gamma):=\{f\circ\gamma:\gamma\in\Gamma\},$$</div>
+<p>which is again a family of smooth paths, now in $D'$.</p>
+<div class="box example"><span class="box-label">Example 1.1 (the typical family)</span>Given disjoint non-empty compact sets $E,F\subset D$, let $\Gamma$ be the family of all smooth paths in $D$ joining $E$ to $F$. This is a “large” family, and the one to keep in mind.</div>
+
+<h3>Length and volume with respect to a density</h3>
+<p>Let $\rho:D\to[0,\infty)$ be continuous.</p>
+<div class="box definition"><span class="box-label">Definition 1.2 ($\rho$-length and $\rho$-volume)</span>For a smooth path $\gamma$ in $D$ and a Lebesgue measurable set $A\subseteq D$, define
+<div class="eq-box">$$\ell_\rho(\gamma)=\int_\gamma \rho(x)\,|dx|,\qquad \upsilon_\rho(A)=\int_A\rho^n(x)\,dx,$$</div>
+where $dx$ denotes Lebesgue measure on $\mathbb{R}^n$.</div>
+
+<h3>Admissible densities and the modulus</h3>
+<div class="box definition"><span class="box-label">Definition 1.3 (admissible density)</span>A continuous $\rho:D\to[0,\infty)$ is admissible for $\Gamma$ if
+<div class="eq-box">$$\ell_\rho(\gamma)\geq 1\qquad\text{for every }\gamma\in\Gamma.$$</div>
+The set of all admissible densities is denoted $\operatorname{Adm}(\Gamma)$.</div>
+<p><strong>Intuition.</strong> Admissibility keeps $\rho$ from being too small, on average, along any curve of $\Gamma$. If $\Gamma$ contains enough curves that together sweep out a substantial part of $D$ (in the sense of measure), an admissible $\rho$ cannot be small on most of $D$, so $\upsilon_\rho(D)$ cannot be small either.</p>
+<p>The natural question is: how small can $\upsilon_\rho(D)$ be made by a clever choice of $\rho$?</p>
+<div class="box definition"><span class="box-label">Definition 1.4 (Modulus of a curve family)</span><div class="eq-box">$$M(\Gamma)=\inf\{\upsilon_\rho(D):\rho\in\operatorname{Adm}(\Gamma)\}.$$</div></div>
+<div class="box remark"><span class="box-label">Remark</span>$M(\Gamma)=\infty$ in two situations: if $\operatorname{Adm}(\Gamma)=\varnothing$ (convention for the empty infimum), or if $\operatorname{Adm}(\Gamma)\neq\varnothing$ but $\upsilon_\rho(D)=\infty$ for every $\rho\in\operatorname{Adm}(\Gamma)$.</div>
+
+<h2 id="distortion">2. How the modulus changes under a diffeomorphism</h2>
+<p>We want to compare $M(\Gamma)$ and $M(f(\Gamma))$. The plan is to transport admissible densities from $D'$ back to $D$, and measure the volume cost with the distortion of $f$.</p>
+<h3>Outer and inner distortion</h3>
+<p>For a linear map $T$, recall $H_O(T)=\|T\|^n/|\det T|$. The outer distortion of $f$ is</p>
+<div class="eq-box">$$K_O(f)=\sup_{x\in D}H_O(f'(x))=\sup_{x\in D}\frac{\|f'(x)\|^n}{|J_f(x)|},$$</div>
+<p>where $\|\cdot\|$ is the operator norm. The inner distortion $K_I(f)$ is defined analogously and satisfies $K_I(f)=K_O(f^{-1})$. We assume $K_O(f)<\infty$.</p>
+<h3>Pulling back an admissible density</h3>
+<p>Let $\widetilde\Gamma=f(\Gamma)$ and let $\widetilde\rho\in\operatorname{Adm}(\widetilde\Gamma)$. Define $\rho:D\to[0,\infty)$ by</p>
+<div class="eq-box">$$\rho(x)=\widetilde\rho(f(x))\,\|f'(x)\|.$$</div>
+<div class="box theorem"><span class="box-label">Lemma 2.1</span>$\rho\in\operatorname{Adm}(\Gamma)$.</div>
+<div class="proof"><span class="proof-label">Proof.</span> Let $\gamma:[a,b]\to D$ be in $\Gamma$ and put $\beta=f\circ\gamma\in\widetilde\Gamma$. Since $\beta'(t)=f'(\gamma(t))\gamma'(t)$ and $|f'(\gamma(t))\gamma'(t)|\leq\|f'(\gamma(t))\|\,|\gamma'(t)|$, we obtain
+<div class="eq-box">$$\begin{aligned}1\leq\ell_{\widetilde\rho}(\beta)&=\int_a^b\widetilde\rho(\beta(t))|\beta'(t)|\,dt\\&\leq\int_a^b\widetilde\rho(f(\gamma(t)))\|f'(\gamma(t))\|\,|\gamma'(t)|\,dt\\&=\ell_\rho(\gamma).\end{aligned}$$</div>
+Thus $1\leq\ell_\rho(\gamma)$ for every $\gamma\in\Gamma$. <span class="qed-mark">□</span></div>
+<h3>Comparing volumes</h3>
+<div class="box theorem"><span class="box-label">Lemma 2.2</span>With $\rho$ and $\widetilde\rho$ as above, $\upsilon_\rho(D)\leq K_O(f)\,\upsilon_{\widetilde\rho}(D')$.</div>
+<div class="proof"><span class="proof-label">Proof.</span> Use $\|f'\|^n\leq K_O(f)|J_f|$ and then the change of variables $y=f(x)$:
+<div class="eq-box">$$\begin{aligned}\upsilon_\rho(D)&=\int_D\widetilde\rho(f(x))^n\|f'(x)\|^n\,dx\\&\leq K_O(f)\int_D\widetilde\rho(f(x))^n|J_f(x)|\,dx\\&=K_O(f)\int_{D'}\widetilde\rho(y)^n\,dy.\end{aligned}$$</div><span class="qed-mark">□</span></div>
+<h3>Quasi-invariance and invariance</h3>
+<div class="box theorem"><span class="box-label">Theorem 2.3 (quasi-invariance of the modulus)</span>Let $f:D\to D'$ be a diffeomorphism with $K_O(f),K_I(f)<\infty$ and $\Gamma$ a family of smooth paths in $D$. Then
+<div class="eq-box">$$\frac{1}{K_O(f)}M(\Gamma)\leq M(f(\Gamma))\leq K_I(f)M(\Gamma).$$</div></div>
+<div class="proof"><span class="proof-label">Proof.</span> By Lemmas 2.1 and 2.2, for every $\widetilde\rho\in\operatorname{Adm}(\widetilde\Gamma)$,
+<div class="eq-box">$$M(\Gamma)\leq\upsilon_\rho(D)\leq K_O(f)\upsilon_{\widetilde\rho}(D').$$</div>
+Taking the infimum over $\widetilde\rho$ gives $M(\Gamma)\leq K_O(f)M(\widetilde\Gamma)$. Applying the same argument to $f^{-1}:D'\to D$ and the family $\widetilde\Gamma$, and using $K_O(f^{-1})=K_I(f)$, gives $M(\widetilde\Gamma)\leq K_I(f)M(\Gamma)$. Together these are the claim. <span class="qed-mark">□</span></div>
+<div class="box theorem"><span class="box-label">Corollary 2.4 (conformal invariance)</span>If $f:D\to D'$ is a conformal diffeomorphism, then $K_O(f)=K_I(f)=1$, hence
+<div class="eq-box">$$M(f(\Gamma))=M(\Gamma)$$</div>
+for every family $\Gamma$ of smooth paths in $D$. In words: the modulus is a conformal invariant.</div>
+
+<h2 id="extremal">3. Extremal length and quasiconformal maps</h2>
+<p>Because of Corollary 2.4, $M(\Gamma)$ is called the conformal modulus of $\Gamma$. A closely related quantity is the extremal length</p>
+<div class="eq-box">$$\lambda(\Gamma)=M(\Gamma)^{1/(1-n)},\qquad\text{so for }n=2:\quad\lambda(\Gamma)=\frac{1}{M(\Gamma)}.$$</div>
+<p>Theorem 2.3 is exactly what makes the following class natural. A diffeomorphism $f$ with $K_O(f)$ and $K_I(f)$ finite is quasiconformal; equivalently, its linear dilatation $H_f$ is bounded on $D$. Its maximal dilatation is</p>
+<div class="eq-box">$$K(f)=\max\{K_O(f),K_I(f)\},\qquad H(f)^{n/2}\leq K(f)\leq H(f)^{n-1}.$$</div>
+<p>By Theorem 2.3, a quasiconformal map changes moduli by at most a factor $K(f)$ in either direction.</p>
+
+<h2 id="model">4. Two model computations</h2>
+<p>Both examples follow the same two-step pattern, which is the standard way to compute an exact modulus:</p>
+<ol><li><strong>Upper bound:</strong> exhibit one admissible $\rho$ and compute $\upsilon_\rho(D)$.</li><li><strong>Lower bound:</strong> restrict to a subfamily $\Gamma_0\subseteq\Gamma$ (so $M(\Gamma_0)\leq M(\Gamma)$, since $\operatorname{Adm}(\Gamma)\subseteq\operatorname{Adm}(\Gamma_0)$), and show by Cauchy–Schwarz that every admissible $\rho$ has $\upsilon_\rho(D)$ at least the same value.</li></ol>
+
+<h3 id="rectangle">4.1 Curves crossing a rectangle</h3>
+<p>Let $R=[0,a]\times[0,b]$ and let $\Gamma$ be the family of paths in $R$ joining the sides $x=0$ and $x=a$. Then</p>
+<div class="eq-box">$$M(\Gamma)=\frac{b}{a}.$$</div>
+<figure class="fig"><svg viewBox="0 0 420 190" role="img" aria-label="Rectangle with width a and height b, showing curves crossing from left to right" style="width:100%;max-width:420px"><rect x="85" y="30" width="250" height="120" fill="none" stroke="#C7C5D4" stroke-width="1.5"/><line x1="85" y1="30" x2="85" y2="150" stroke="#8B7FFF" stroke-width="4"/><line x1="335" y1="30" x2="335" y2="150" stroke="#8B7FFF" stroke-width="4"/><path d="M85 55 C145 45 215 65 335 52 M85 90 C150 80 250 102 335 88 M85 125 C170 112 245 137 335 120" fill="none" stroke="#F3B860" stroke-width="1.6"/><text x="210" y="20" text-anchor="middle" font-family="Fraunces" font-size="14" fill="#C7C5D4">R</text><text x="210" y="174" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#C7C5D4">a</text><text x="62" y="93" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#C7C5D4">b</text><text x="85" y="166" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">x = 0</text><text x="335" y="166" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#9C99AC">x = a</text></svg><figcaption>Curves in the family join the two vertical sides of the rectangle.</figcaption></figure>
+<div class="proof"><span class="proof-label">Proof.</span><strong>Upper bound.</strong> Take $\rho\equiv1/a$. A path $\gamma\in\Gamma$ travels from $x=0$ to $x=a$, so its Euclidean length is at least $a$ and $\ell_\rho(\gamma)\geq a/a=1$. Thus $\rho\in\operatorname{Adm}(\Gamma)$ and
+<div class="eq-box">$$\upsilon_\rho(R)=\int_0^b\int_0^a\frac{1}{a^2}\,dx\,dy=\frac{b}{a},\qquad M(\Gamma)\leq\frac{b}{a}.$$</div>
+<strong>Lower bound.</strong> Let $\Gamma_0\subseteq\Gamma$ be the horizontal segments $x\mapsto(x,y_0)$, $y_0\in[0,b]$, and let $\rho\in\operatorname{Adm}(\Gamma)$. Then for each $y$,
+<div class="eq-box">$$1\leq\int_0^a\rho(x,y)\,dx.$$</div>
+By Cauchy–Schwarz,
+<div class="eq-box">$$1\leq\left(\int_0^a\rho(x,y)\,dx\right)^2\leq a\int_0^a\rho^2(x,y)\,dx,$$</div>
+so $\int_0^a\rho^2(x,y)\,dx\geq1/a$. Integrating in $y\in[0,b]$ gives $\upsilon_\rho(R)\geq b/a$ for every $\rho\in\operatorname{Adm}(\Gamma)$, so $M(\Gamma)\geq b/a$. Therefore $M(\Gamma)=b/a$. <span class="qed-mark">□</span></div>
+
+<h3 id="annulus">4.2 Curves crossing an annulus</h3>
+<p>Let $A=\{z\in\mathbb{C}:r\leq|z|\leq R\}$ and let $\Gamma$ be the family of paths in $A$ joining the circles $|z|=r$ and $|z|=R$. Then</p>
+<div class="eq-box">$$M(\Gamma)=\frac{2\pi}{\log(R/r)}.$$</div>
+<figure class="fig"><svg viewBox="0 0 420 250" role="img" aria-label="Annulus with inner radius r, outer radius R, and a radial path" style="width:100%;max-width:420px"><circle cx="190" cy="125" r="92" fill="none" stroke="#8B7FFF" stroke-width="1.8"/><circle cx="190" cy="125" r="43" fill="none" stroke="#8B7FFF" stroke-width="1.8"/><line x1="190" y1="125" x2="282" y2="125" stroke="#F3B860" stroke-width="2"/><path d="M190 125 L282 125" stroke="#F3B860" stroke-width="2"/><polygon points="282,125 273,120 273,130" fill="#F3B860"/><text x="230" y="115" font-family="IBM Plex Mono" font-size="12" fill="#F3B860">γθ</text><text x="230" y="42" font-family="IBM Plex Mono" font-size="12" fill="#C7C5D4">R</text><text x="208" y="97" font-family="IBM Plex Mono" font-size="12" fill="#C7C5D4">r</text><circle cx="190" cy="125" r="2.5" fill="#C7C5D4"/></svg><figcaption>The family consists of paths joining the inner and outer boundary circles.</figcaption></figure>
+<div class="proof"><span class="proof-label">Proof.</span><strong>Upper bound.</strong> Take
+<div class="eq-box">$$\rho(z)=\frac{1}{|z|\log(R/r)}.$$</div>
+For any path $\gamma\in\Gamma$, $|dz|\geq d|z|$ along the path, so
+<div class="eq-box">$$\int_\gamma\rho\,|dz|\geq\frac{1}{\log(R/r)}\int_r^R\frac{dt}{t}=1,$$</div>
+and $\rho\in\operatorname{Adm}(\Gamma)$. (For a radial path $z=te^{i\theta}$ we have $|dz|=dt$ and equality holds.) In polar coordinates $dA=s\,ds\,d\theta$:
+<div class="eq-box">$$\begin{aligned}\upsilon_\rho(A)&=\int_0^{2\pi}\int_r^R\frac{1}{s^2\log^2(R/r)}s\,ds\,d\theta\\&=\frac{2\pi}{\log^2(R/r)}\int_r^R\frac{ds}{s}=\frac{2\pi}{\log(R/r)}.\end{aligned}$$</div>
+Thus $M(\Gamma)\leq2\pi/\log(R/r)$.</div>
+<div class="proof"><strong>Lower bound.</strong> Let $\Gamma_0$ be the radial segments $\gamma_\theta(t)=te^{i\theta}$, $r\leq t\leq R$, and let $\rho\in\operatorname{Adm}(\Gamma)$. Writing $\rho=(\rho\sqrt{s})s^{-1/2}$ and applying Cauchy–Schwarz along $\gamma_\theta$,
+<div class="eq-box">$$\begin{aligned}1&\leq\int_r^R\rho(se^{i\theta})\,ds\\&\leq\left(\int_r^R\frac{ds}{s}\right)^{1/2}\left(\int_r^R\rho^2(se^{i\theta})s\,ds\right)^{1/2}.
+\end{aligned}$$</div>
+Hence $\int_r^R\rho^2(se^{i\theta})s\,ds\geq1/\log(R/r)$ for every $\theta$. Integrating over $\theta\in[0,2\pi]$,
+<div class="eq-box">$$\upsilon_\rho(A)=\int_0^{2\pi}\int_r^R\rho^2(se^{i\theta})s\,ds\,d\theta\geq\frac{2\pi}{\log(R/r)}$$</div>
+for every $\rho\in\operatorname{Adm}(\Gamma)$. Therefore $M(\Gamma)\geq2\pi/\log(R/r)$, and hence
+<div class="eq-box">$$\boxed{M(\Gamma)=\frac{2\pi}{\log(R/r)}}.$$</div><span class="qed-mark">□</span></div>
+
+<h3 id="logcoordinates">4.3 Note: logarithmic coordinates</h3>
+<p>Put $z=e^w$ with $w=u+iv$. Then $z=e^u e^{iv}$, and</p>
+<div class="eq-box">$$r\leq|z|\leq R\quad\Longleftrightarrow\quad\log r\leq u\leq\log R,\qquad 0\leq v<2\pi.$$</div>
+<p>So, in logarithmic coordinates, the annulus is a rectangle of width $a=\log(R/r)$ and height $b=2\pi$, and the radial segments $\gamma_\theta$ become the horizontal segments of Example 4.1. The formula $M=b/a$ then reads $2\pi/\log(R/r)$, exactly as in Example 4.2.</p>
+
+<div class="nav-footer"><a href="../notes.html">← Notes index</a><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a></div>
+</div>
+<script>
+document.getElementById('themeToggle').addEventListener('click',function(){
+  const isLight=document.documentElement.getAttribute('data-theme')==='light';
+  if(isLight){document.documentElement.removeAttribute('data-theme');localStorage.setItem('theme','dark');}
+  else{document.documentElement.setAttribute('data-theme','light');localStorage.setItem('theme','light');}
+});
+</script>
+</body>
+</html>

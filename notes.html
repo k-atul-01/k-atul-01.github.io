@@ -31,6 +31,17 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+  body{
+  background-image:
+    linear-gradient(rgba(5,5,9,0.86), rgba(5,5,9,0.86)),
+    url("assets/complex-graph.png");
+  background-size:180%;
+  background-position:center 30%;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+}
+@media (max-width:800px){ body{background-attachment:scroll;} }
+:root[data-theme="light"] body{background-image:none;}
 
 /* Mobile compatibility */
 @media (max-width: 800px) {

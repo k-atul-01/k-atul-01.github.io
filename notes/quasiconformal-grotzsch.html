@@ -26,8 +26,20 @@
     --muted:#6E6B7C; --indigo:#4338CA; --amber:#9A6200; --line:rgba(0,0,0,0.12);
     --card:rgba(255,255,255,0.92); --heading:#0E0D14;
   }
-  :root[data-theme="light"] figure.fig svg{background:#14131C; border-radius:10px; padding:10px;}
   :root[data-theme="light"] .box{box-shadow:0 4px 18px rgba(20,20,40,0.06);}
+  /* diagram colours follow the theme */
+  :root{--d-soft:#C7C5D4; --d-muted:#9C99AC; --d-indigo:#8B7FFF; --d-amber:#F3B860; --d-green:#4FAE8E;}
+  :root[data-theme="light"]{--d-soft:#3B3950; --d-muted:#5F5C70; --d-indigo:#4338CA; --d-amber:#A85F00; --d-green:#1F7A5C;}
+  figure.fig svg [fill="#C7C5D4"]{fill:var(--d-soft);}
+  figure.fig svg [stroke="#C7C5D4"]{stroke:var(--d-soft);}
+  figure.fig svg [fill="#9C99AC"]{fill:var(--d-muted);}
+  figure.fig svg [stroke="#9C99AC"]{stroke:var(--d-muted);}
+  figure.fig svg [fill="#8B7FFF"]{fill:var(--d-indigo);}
+  figure.fig svg [stroke="#8B7FFF"]{stroke:var(--d-indigo);}
+  figure.fig svg [fill="#F3B860"]{fill:var(--d-amber);}
+  figure.fig svg [stroke="#F3B860"]{stroke:var(--d-amber);}
+  figure.fig svg [fill="#4FAE8E"]{fill:var(--d-green);}
+  figure.fig svg [stroke="#4FAE8E"]{stroke:var(--d-green);}
   .theme-toggle{
     position:fixed; top:20px; right:20px; z-index:50;
     width:44px; height:44px; border-radius:50%;
@@ -54,6 +66,8 @@
   background-repeat:no-repeat;
   background-attachment:fixed;
   }
+  @media (max-width:800px){ body{background-attachment:scroll;} }
+  :root[data-theme="light"] body{background-image:none;}
   .wrap{max-width:var(--maxw); margin:0 auto; padding:56px 28px 110px;}
   a.back{font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--amber); text-decoration:none;}
   a.back:hover{text-decoration:underline;}
@@ -93,10 +107,7 @@
 
   figure.fig{margin:28px 0; text-align:center;}
   figure.fig img{max-width:100%; border-radius:10px; background:white; padding:6px;}
-  figure.fig svg {
-    max-width: 100%;
-    height: auto;
-};
+  figure.fig svg{max-width:100%; height:auto;}
   figcaption{color:var(--muted); font-size:0.85rem; margin-top:10px; font-style:italic;}
 
   table.results{width:100%; border-collapse:collapse; margin:20px 0; font-size:0.92rem;}

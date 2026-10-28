@@ -26,8 +26,24 @@
     --muted:#6E6B7C; --indigo:#4338CA; --amber:#9A6200; --line:rgba(0,0,0,0.12);
     --card:rgba(255,255,255,0.92); --heading:#0E0D14;
   }
-  :root[data-theme="light"] figure.fig svg{background:#14131C; border-radius:10px; padding:10px;}
   :root[data-theme="light"] .box{box-shadow:0 4px 18px rgba(20,20,40,0.06);}
+  /* diagram colours follow the theme */
+  :root{--d-soft:#C7C5D4; --d-muted:#9C99AC; --d-indigo:#8B7FFF; --d-amber:#F3B860; --d-green:#4FAE8E; --d-axis:#3A3850;}
+  :root[data-theme="light"]{--d-soft:#3B3950; --d-muted:#5F5C70; --d-indigo:#4338CA; --d-amber:#A85F00; --d-green:#1F7A5C; --d-axis:#C9C7D6;}
+  figure.fig svg [fill="#C7C5D4"]{fill:var(--d-soft);}
+  figure.fig svg [stroke="#C7C5D4"]{stroke:var(--d-soft);}
+  figure.fig svg [fill="#9C99AC"]{fill:var(--d-muted);}
+  figure.fig svg [stroke="#9C99AC"]{stroke:var(--d-muted);}
+  figure.fig svg [fill="#8B7FFF"]{fill:var(--d-indigo);}
+  figure.fig svg [stroke="#8B7FFF"]{stroke:var(--d-indigo);}
+  figure.fig svg [fill="#F3B860"]{fill:var(--d-amber);}
+  figure.fig svg [stroke="#F3B860"]{stroke:var(--d-amber);}
+  figure.fig svg [fill="#4FAE8E"]{fill:var(--d-green);}
+  figure.fig svg [stroke="#4FAE8E"]{stroke:var(--d-green);}
+  figure.fig svg [fill="#3A3850"]{fill:var(--d-axis);}
+  figure.fig svg [stroke="#3A3850"]{stroke:var(--d-axis);}
+  figure.fig svg [fill="#2A2838"]{fill:var(--d-axis);}
+  figure.fig svg [stroke="#2A2838"]{stroke:var(--d-axis);}
   .theme-toggle{
     position:fixed; top:20px; right:20px; z-index:50;
     width:44px; height:44px; border-radius:50%;
@@ -54,6 +70,8 @@
   background-repeat:no-repeat;
   background-attachment:fixed;
   }
+  @media (max-width:800px){ body{background-attachment:scroll;} }
+  :root[data-theme="light"] body{background-image:none;}
   .wrap{max-width:var(--maxw); margin:0 auto; padding:56px 28px 110px;}
   a.back{font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--amber); text-decoration:none;}
   a.back:hover{text-decoration:underline;}
@@ -197,7 +215,7 @@
   <h3>2. Translations</h3>
   <p>Let $f_v : \mathbb{R}^n \to \mathbb{R}^n$ for $v \in \mathbb{R}^n$, defined by $f_v(x) = x + v$ on $\mathbb{R}^n$.</p>
   <figure class="fig">
-    <svg viewBox="0 0 420 230" role="img" aria-hidden="true" style="width:100%;max-width:420px"><defs><marker id="arrow1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8B7FFF"/></marker></defs><g stroke="#3A3850" stroke-width="1"><line x1="30" y1="212" x2="395" y2="212"/><line x1="70" y1="20" x2="70" y2="222"/></g><g font-family="IBM Plex Mono" font-size="11" fill="#9C99AC" stroke="none"><text x="398" y="216">x1</text><text x="60" y="16">x2</text></g><polygon points="140,170 200,180 170,140" fill="rgba(243,184,96,0.08)" stroke="#F3B860" stroke-width="1.4"/><polygon points="250,90 310,100 280,60" fill="rgba(139,127,255,0.08)" stroke="#8B7FFF" stroke-width="1.4"/><line x1="140" y1="170" x2="246" y2="93" stroke="#8B7FFF" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrow1)"/><circle cx="140" cy="170" r="2.6" fill="#F3B860"/><circle cx="250" cy="90" r="2.6" fill="#8B7FFF"/><text x="124" y="184" font-family="Fraunces" font-style="italic" font-size="13" fill="#F3B860" stroke="none">x</text><text x="228" y="104" font-family="Fraunces" font-style="italic" font-size="13" fill="#8B7FFF" stroke="none">x+v</text><line x1="200" y1="180" x2="306" y2="103" stroke="#8B7FFF" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrow1)"/><circle cx="200" cy="180" r="2.6" fill="#F3B860"/><circle cx="310" cy="100" r="2.6" fill="#8B7FFF"/><text x="206" y="194" font-family="Fraunces" font-style="italic" font-size="13" fill="#F3B860" stroke="none">y</text><text x="316" y="114" font-family="Fraunces" font-style="italic" font-size="13" fill="#8B7FFF" stroke="none">y+v</text><line x1="170" y1="140" x2="276" y2="63" stroke="#8B7FFF" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrow1)"/><circle cx="170" cy="140" r="2.6" fill="#F3B860"/><circle cx="280" cy="60" r="2.6" fill="#8B7FFF"/><text x="166" y="132" font-family="Fraunces" font-style="italic" font-size="13" fill="#F3B860" stroke="none">z</text><text x="276" y="52" font-family="Fraunces" font-style="italic" font-size="13" fill="#8B7FFF" stroke="none">z+v</text><text x="195" y="122" font-family="Fraunces" font-style="italic" font-size="14" fill="#8B7FFF" stroke="none">v</text></svg>
+    <svg viewBox="0 0 420 230" role="img" aria-hidden="true" style="width:100%;max-width:420px"><defs><marker id="arrow1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8B7FFF"/></marker></defs><g stroke="#3A3850" stroke-width="1"><line x1="30" y1="212" x2="395" y2="212"/><line x1="70" y1="20" x2="70" y2="222"/></g><g font-family="IBM Plex Mono" font-size="11" fill="#9C99AC" stroke="none"><text x="398" y="216">x1</text><text x="60" y="16">x2</text></g><polygon points="140,170 200,180 170,140" fill="rgba(243,184,96,0.08)" stroke="#F3B860" stroke-width="1.4"/><polygon points="250,90 310,100 280,60" fill="rgba(139,127,255,0.08)" stroke="#8B7FFF" stroke-width="1.4"/><line x1="140" y1="170" x2="246" y2="93" stroke="#8B7FFF" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrow1)"/><circle cx="140" cy="170" r="2.6" fill="#F3B860"/><circle cx="250" cy="90" r="2.6" fill="#8B7FFF"/><text x="124" y="184" font-family="Fraunces" font-style="italic" font-size="13" fill="#F3B860" stroke="none">x</text><text x="205" y="84" font-family="Fraunces" font-style="italic" font-size="13" fill="#8B7FFF" stroke="none">x+v</text><line x1="200" y1="180" x2="306" y2="103" stroke="#8B7FFF" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrow1)"/><circle cx="200" cy="180" r="2.6" fill="#F3B860"/><circle cx="310" cy="100" r="2.6" fill="#8B7FFF"/><text x="206" y="194" font-family="Fraunces" font-style="italic" font-size="13" fill="#F3B860" stroke="none">y</text><text x="316" y="114" font-family="Fraunces" font-style="italic" font-size="13" fill="#8B7FFF" stroke="none">y+v</text><line x1="170" y1="140" x2="276" y2="63" stroke="#8B7FFF" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrow1)"/><circle cx="170" cy="140" r="2.6" fill="#F3B860"/><circle cx="280" cy="60" r="2.6" fill="#8B7FFF"/><text x="166" y="132" font-family="Fraunces" font-style="italic" font-size="13" fill="#F3B860" stroke="none">z</text><text x="276" y="52" font-family="Fraunces" font-style="italic" font-size="13" fill="#8B7FFF" stroke="none">z+v</text><text x="226" y="142" font-family="Fraunces" font-style="italic" font-size="14" fill="#8B7FFF" stroke="none">v</text></svg>
     <figcaption>Translation $f_v(x) = x + v$ moves every point by the same vector v.</figcaption>
   </figure>
 

@@ -45,6 +45,9 @@ body{
   background-repeat:no-repeat;
   background-attachment:fixed;
 }
+@media (max-width:800px){ body{background-attachment:scroll;} }
+:root[data-theme="light"] body{background-image:none;}
+
 .wrap{max-width:var(--maxw);margin:0 auto;padding:56px 28px 110px;}
 a.back{font-family:'IBM Plex Mono',monospace;font-size:.85rem;color:var(--amber);text-decoration:none;}
 a.back:hover{text-decoration:underline;}
